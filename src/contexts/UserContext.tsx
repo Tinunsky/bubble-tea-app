@@ -1,6 +1,7 @@
 import { getAuth, signOut } from "firebase/auth";
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext, useEffect, useState } from "react";
 import { EN_LANG } from "../constants/languageEn";
+import { ES_LANG } from "../constants/languageEs";
 
 type UserContextType = {
   logIn: (name: string, userId: string) => void;
@@ -11,6 +12,8 @@ type UserContextType = {
   setUserName: React.Dispatch<React.SetStateAction<string>>;
   language: string;
   setLanguage: React.Dispatch<React.SetStateAction<string>>;
+  userNameUpperCase: string;
+  toggleChangeLanguage: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export const UserContext = createContext<UserContextType>({
@@ -22,26 +25,46 @@ export const UserContext = createContext<UserContextType>({
   setUserName: () => {},
   language: EN_LANG,
   setLanguage: () => {},
+  userNameUpperCase: "",
+  toggleChangeLanguage: () => {},
 });
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-  const displayUserName = localStorage.getItem("userName");
-  const userId = localStorage.getItem("userId");
-  const [isLogged, setIsLogged] = useState(!!displayUserName);
-  const [userName, setUserName] = useState(displayUserName);
+  const storedDisplayUserName = localStorage.getItem("userName") ? true : false
+  const [isLogged, setIsLogged] = useState(storedDisplayUserName);
+  const [userId, setUserId] = useState(localStorage.getItem("userId"));
+  const [userName, setUserName] = useState(localStorage.getItem("userName"));
+  const userNameUpperCase = userName?.split(" ")[0].toUpperCase();
+  const initialLanguage = localStorage.getItem("language") || EN_LANG;
+  const [language, setLanguage] = useState(initialLanguage );
 
-  const [language, setLanguage] = useState(EN_LANG);
+  useEffect(() => {
+      localStorage.setItem("language", initialLanguage);
+  }, []);
 
-  console.log("userId", userId);
-
-  function logIn(name, userId) {
+  function logIn(name, id) {
     if (isLogged === false) {
       setIsLogged(true);
       setUserName(name);
+      // setLanguage(language);
       localStorage.setItem("userName", name);
-      localStorage.setItem("userId", userId);
+      localStorage.setItem("userId", id);
+      // localStorage.setItem("language", language);
     }
   }
+
+  const toggleChangeLanguage = () => {
+    let targetLanguage = language;
+
+    if (language === EN_LANG) {
+      targetLanguage = ES_LANG;
+    } else {
+      targetLanguage = EN_LANG;
+    }
+
+    localStorage.setItem("language", targetLanguage);
+    setLanguage(targetLanguage);
+  };
 
   function logOut() {
     if (isLogged === true) {
@@ -68,6 +91,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         setUserName,
         language,
         setLanguage,
+        userNameUpperCase,
+        toggleChangeLanguage,
       }}
     >
       {children}

@@ -36,4 +36,6 @@ export const ES_TRANSLATION = {
   LANGUAGE: "Idioma",
   FOLLOW_US: "Síguenos",
   FOLLOW_US1: "Síguenos1",
+  YOU_ARE_NOT: "NO ESTAS",
+  LOGGED_IN: "LOGUEADO",
 };

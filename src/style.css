@@ -8,7 +8,7 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  background: url('./assets/blurred_background.jpg');
+  background: url("./assets/blurred_background.jpg");
   background-size: cover;
   font-family: Roboto, Helvetica, sans-serif;
   font-size: 12px;
@@ -26,8 +26,8 @@ body input {
   margin-bottom: 20px;
   padding-top: 5px;
   padding-bottom: 5px;
-  border-bottom: 1px solid #d1c9c9; 
-  outline: none; 
+  border-bottom: 1px solid #d1c9c9;
+  outline: none;
 }
 
 .logo-image {
@@ -35,7 +35,29 @@ body input {
   margin-right: 15px;
 }
 
+.product-name {
+  font-size: 1.6em;
+  font-weight: bold;
+  padding-bottom: 5px;
+}
 
+.product-price {
+  font-weight: bolder;
+  font-size: 1.25em;
+  padding-bottom: 10px;
+}
 
+.product-description {
+  letter-spacing: 1px;
+}
 
+.attributes-options {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+}
 
+.separation-line {
+  border-bottom: 1px solid #2223; 
+  margin-block: 10px;
+}

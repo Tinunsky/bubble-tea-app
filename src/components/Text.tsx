@@ -7,8 +7,8 @@ export function Text({ id }) {
   const { language } = useContext(UserContext);
   switch (language) {
     case ES_LANG:
-      return <>{ES_TRANSLATION[id]}</>;
+      return ES_TRANSLATION[id];
     default:
-      return <>{EN_TRANSLATION[id]}</>;
+      return EN_TRANSLATION[id];
   }
 }

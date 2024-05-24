@@ -9,6 +9,9 @@ import { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import { Text } from "../components/Text";
+import googleIcon from "../assets/google_logo.svg";
+import { BubbleTeaContext } from "../contexts/BubbleTeaContext";
+import { paths } from "../utils/Router";
 
 export const containerStyle = {
   background: "white",
@@ -26,10 +29,11 @@ export const loginForm = {
   marginTop: "50px",
 };
 
-export function Login({ onClose, openSignUp }) {
+export function Login({ onClose, openSignUp, singInWithGoogle }) {
   const [emailLogIn, setEmailLogIn] = useState("");
   const [passwordLogIn, setPasswordLogIn] = useState("");
   const { logIn } = useContext(UserContext);
+  const { setIsLoginPopupOpen } = useContext(BubbleTeaContext);
   const navigate = useNavigate();
 
   const signInWithCredentials = async () => {
@@ -42,7 +46,8 @@ export function Login({ onClose, openSignUp }) {
         passwordLogIn
       );
       logIn(resp.user.displayName, resp.user.uid);
-      navigate("/");
+      setIsLoginPopupOpen(false);
+      navigate(paths.home);
       console.log("resp", resp);
       return resp.user.uid;
     } catch (e) {
@@ -64,65 +69,81 @@ export function Login({ onClose, openSignUp }) {
   };
 
   return (
-    <>
-      <div style={containerStyle}>
-        <div
-          style={{
-            fontSize: "2em",
-            fontWeight: "bold",
-            display: "flex",
-            justifyContent: "space-between",
-          }}
-        >
-          <div>
-            <p><Text id={"WELCOME"} /></p>
-            <p><Text id={"BACK"} />!</p>
-          </div>
-          <div>
-            <img
-              src={closeIcon}
-              alt="close"
-              style={{
-                maxWidth: "20px",
-                maxHeight: "20px",
-                cursor: "pointer",
-              }}
-              onClick={onClose}
-            />
-          </div>
+    <div style={containerStyle}>
+      <div
+        style={{
+          fontSize: "2em",
+          fontWeight: "bold",
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <div>
+          <p>
+            <Text id={"WELCOME"} />
+          </p>
+          <p>
+            <Text id={"BACK"} />!
+          </p>
         </div>
-        <div style={loginForm}>
-          <h3><Text id={"EMAIL"} /></h3>
-          <input
-            type="text"
-            placeholder="Your email account"
-            value={emailLogIn}
-            onChange={(e) => setEmailLogIn(e.target.value)}
+        <div>
+          <img
+            src={closeIcon}
+            alt="close"
+            style={{
+              maxWidth: "20px",
+              maxHeight: "20px",
+              cursor: "pointer",
+            }}
+            onClick={onClose}
           />
-          <h3><Text id={"PASSWORD"} /></h3>
-          <input
-            type="password"
-            placeholder="Your password"
-            value={passwordLogIn}
-            onChange={(e) => setPasswordLogIn(e.target.value)}
-          />
-          {/* {errorLogin && <div style={{ color: "#ff2222" }}>{errorLogin}</div>} */}
-          <Button text={<Text id={"LOG_IN"} />} onClick={signInWithCredentials}>
-            {/* <div> {loadingLogin ? "Logging in..." : "Log in"}</div> */}
-          </Button>
-        </div>
-        <div style={{ textAlign: "center" }}>
-          <div
-            style={{ color: "#3e3737", margin: "10px", cursor: "pointer" }}
-            onClick={resetPassword}
-          >
-            <Text id={"CANT_REMEBER_MY_PASSWORD"} />
-          </div>
-          <div style={{ cursor: "pointer" }} onClick={openSignUp}>
-          <Text id={"DONT_HAVE_AN_ACCOUNT_CREATE_ONE"} /><b><Text id={"HERE"} /></b>.
-          </div>
         </div>
       </div>
-    </>
+      <div style={loginForm}>
+        <h3>
+          <Text id={"EMAIL"} />
+        </h3>
+        <input
+          type="text"
+          placeholder="Your email account"
+          value={emailLogIn}
+          onChange={(e) => setEmailLogIn(e.target.value)}
+        />
+        <h3>
+          <Text id={"PASSWORD"} />
+        </h3>
+        <input
+          type="password"
+          placeholder={Text({ id: "YOUR_PASSWORD" })}
+          value={passwordLogIn}
+          onChange={(e) => setPasswordLogIn(e.target.value)}
+        />
+        {/* {errorLogin && <div style={{ color: "#ff2222" }}>{errorLogin}</div>} */}
+        <Button text={<Text id={"LOG_IN"} />} onClick={signInWithCredentials}>
+          {/* <div> {loadingLogin ? "Logging in..." : "Log in"}</div> */}
+        </Button>
+        <Button
+          text={<Text id={"LOGIN_WITH_GOOGLE"} />}
+          secondary
+          icon={googleIcon}
+          onClick={singInWithGoogle}
+        />
+      </div>
+      <div style={{ textAlign: "center" }}>
+        <div
+          style={{ color: "#3e3737", margin: "10px", cursor: "pointer" }}
+          onClick={resetPassword}
+        >
+          <Text id={"CANT_REMEBER_MY_PASSWORD"} />
+        </div>
+        <div style={{ cursor: "pointer" }} onClick={openSignUp}>
+          <Text id={"DONT_HAVE_AN_ACCOUNT_CREATE_ONE"} />
+          <b>
+            <Text id={"HERE"} />
+          </b>
+          .
+        </div>
+      </div>
+    </div>
   );
 }

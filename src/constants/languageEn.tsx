@@ -35,6 +35,8 @@ export const EN_TRANSLATION = {
   SOJA_LOVERS: "Soja Lovers",
   LANGUAGE: "Language",
   FOLLOW_US: "Follow us",
+  YOU_ARE_NOT: "YOU ARE NOT",
+  LOGGED_IN: "LOGGED IN",
 
 
 

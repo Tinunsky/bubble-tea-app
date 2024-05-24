@@ -6,6 +6,7 @@ import { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import { Text } from "../components/Text";
+import { paths } from "../utils/Router";
 
 export const containerStyle = {
   background: "white",
@@ -51,7 +52,7 @@ export function Signup({ onClose }) {
       console.log("id", resp.user.uid);
       updateProfileWithDisplayName();
       logIn(fullNameSignUp, resp.user.uid);
-      navigate("/");
+      navigate(paths.home);
       return resp.user.uid;
     } catch (e) {
       alert((e as Error).message);

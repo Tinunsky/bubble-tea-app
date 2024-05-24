@@ -2,7 +2,6 @@ import { Accordion } from "../components/Accordion/Accordion";
 import registerIcon from "../assets/user_register_icon.svg";
 import loginIcon from "../assets/user_login_icon.svg";
 import googleIcon from "../assets/google_logo.svg";
-import arrowRight from "../assets/arrow_right.svg";
 import { useContext, useState } from "react";
 import { Button } from "../components/Button";
 import { HomeLayout } from "../components/HomeLayout/HomeLayout";
@@ -13,12 +12,14 @@ import { firebaseAuth } from "../firebase";
 import { UserContext } from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import { Text } from "../components/Text";
+import { BubbleTeaContext } from "../contexts/BubbleTeaContext";
+import { ButtonOrderNow } from "../components/ButtonOrderNow";
+import { paths } from "../utils/Router";
 
 export function Unlogged() {
   const [loginExpanded, setLoginExpanded] = useState(false);
   const [signUpExpanded, setSignUpExpanded] = useState(false);
-  const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
-  const [isSignupPopupOpen, setIsSignupPopupOpen] = useState(false);
+  const { isLoginPopupOpen, isSignupPopupOpen , toggleLoginPopup, toggleSignupPopup, setIsLoginPopupOpen } = useContext(BubbleTeaContext);
   const { logIn } = useContext(UserContext);
 
   const toggleLoginExpanded = () => {
@@ -31,16 +32,6 @@ export function Unlogged() {
     setLoginExpanded(false);
   };
 
-  const toggleLoginPopup = () => {
-    setIsLoginPopupOpen(!isLoginPopupOpen);
-    setIsSignupPopupOpen(false);
-  };
-
-  const toggleSignupPopup = () => {
-    setIsSignupPopupOpen(!isSignupPopupOpen);
-    setIsLoginPopupOpen(false);
-  };
-
   const navigate = useNavigate();
   const googleProvider = new GoogleAuthProvider();
 
@@ -51,7 +42,8 @@ export function Unlogged() {
       const { displayName, email, photoURL, uid } = result.user;
       console.log("google user", result.user);
       logIn(displayName, uid);
-      navigate("/");
+      setIsLoginPopupOpen(false);
+      navigate(paths.home);
 
       return uid;
     } catch (e) {
@@ -104,15 +96,10 @@ export function Unlogged() {
           />
         </Accordion>
         <div className="p-8 bg-white">
-          <Button
-            text={<Text id={"ORDER_NOW"}/>}
-            icon={arrowRight}
-            inverted
-            onClick={toggleLoginPopup}
-          />
+        <ButtonOrderNow />
         </div>
         {isLoginPopupOpen && (
-          <Login onClose={toggleLoginPopup} openSignUp={toggleSignupPopup} />
+          <Login onClose={toggleLoginPopup} openSignUp={toggleSignupPopup} singInWithGoogle={singInWithGoogle} />
         )}
         {isSignupPopupOpen && <Signup onClose={toggleSignupPopup} />}
       </HomeLayout>

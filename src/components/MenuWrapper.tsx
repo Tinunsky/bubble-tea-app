@@ -7,23 +7,23 @@ import languageIcon from "../assets/language_icon.svg";
 import instagramIcon from "../assets/instagram_logo.svg";
 import orderIcon from "../assets/order_icon.svg";
 import { MenuFooter } from "./MenuFooter";
-import { EN_LANG } from "../constants/languageEn";
-import { ES_LANG } from "../constants/languageEs";
+
 import { Text } from "../components/Text";
+import { MenuHeader } from "./MenuHeader";
 
 const containerWidth = 550;
 const menuWidth = Math.round((containerWidth * 2) / 3);
 
 export function MenuWrapper({ children }) {
-  const { showMenu } = useContext(BubbleTeaContext);
-  const { isLogged, logOut, language, setLanguage } = useContext(UserContext);
+  const { showMenu, setShowMenu, setIsLoginPopupOpen, setIsSignupPopupOpen } =
+    useContext(BubbleTeaContext);
+  const { userNameUpperCase, isLogged, logOut, toggleChangeLanguage } =
+    useContext(UserContext);
 
-  const toggleChangeLanguage = () => {
-    if (language === EN_LANG) {
-      setLanguage(ES_LANG);
-    } else {
-      setLanguage(EN_LANG);
-    }
+  const openLoginPopup = () => {
+    setIsLoginPopupOpen(true);
+    setIsSignupPopupOpen(false);
+    setShowMenu(false);
   };
 
   const menuWrapperStyle = {
@@ -32,7 +32,7 @@ export function MenuWrapper({ children }) {
     position: "relative",
     transition: "all 0.5s ease",
     background: "#a88",
-    height: "100dvh",
+    minHeight: "100dvh",
   };
 
   return (
@@ -44,54 +44,73 @@ export function MenuWrapper({ children }) {
         <div
           style={{
             width: `${menuWidth}px`,
-            background: "#fff",
+            flex: 1,
+            backgroundColor: "#fff",
             borderRight: "2px solid black",
-            height: "100dvh",
-            overflowY: "auto",
-            display: "flex",
-            flexDirection: "column",
           }}
         >
           <div
-            className="header-menu"
-            style={{ backgroundColor: "#000000", height: "100px", color: "#fff" }}
-          >
-            You are not logged in
-          </div>
-          <div
+            className="lg:fixed"
             style={{
+              // position: showMenu ? "fixed" : "inherit",
+
+              height: "100dvh",
+              width: `${menuWidth}px`,
               display: "flex",
               flexDirection: "column",
-              paddingLeft: "30px",
-              flex: 1,
-              justifyContent: "space-around",
             }}
           >
-            <div></div>
-            <ItemMenu
-              itemName={<Text id={"MY_ORDERS"} />}
-              itemImage={orderIcon}
-              onClick={() => window.alert("Redirect")}
-            ></ItemMenu>
-            <ItemMenu
-              itemName={"Soja Lovers"}
-              itemImage={presentIcon}
-              onClick={() => window.alert("Redirect")}
-            ></ItemMenu>
-            <ItemMenu
-              itemName={<Text id={"LANGUAGE"} />}
-              itemImage={languageIcon}
-              onClick={toggleChangeLanguage}
-            ></ItemMenu>
-            <ItemMenu
-              itemName={<Text id={"FOLLOW_US"} />}
-              itemImage={instagramIcon}
-              onClick={() =>
-                (window.location.href =
-                  "https://www.instagram.com/chinesetofumagician/?hl=en")
+            {/* See how to get access to toggleLoginPopup from Unlogged component */}
+            <MenuHeader
+              buttonOnClick={isLogged ? () => {} : openLoginPopup}
+              text={
+                isLogged ? (
+                  userNameUpperCase
+                ) : (
+                  <>
+                    <Text id={"YOU_ARE_NOT"} />
+                    <br />
+                    <Text id={"LOGGED_IN"} />
+                  </>
+                )
               }
-            ></ItemMenu>
-            <MenuFooter isLogged={isLogged} logOut={logOut} />
+              textButton={isLogged ? " " : <Text id={"LOG_IN"} />}
+            />
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                paddingLeft: "30px",
+                flex: 1,
+                justifyContent: "space-around",
+              }}
+            >
+              <div></div>
+              <ItemMenu
+                itemName={<Text id={"MY_ORDERS"} />}
+                itemImage={orderIcon}
+                onClick={() => window.alert("Redirect")}
+              ></ItemMenu>
+              <ItemMenu
+                itemName={"Soja Lovers"}
+                itemImage={presentIcon}
+                onClick={() => window.alert("Redirect")}
+              ></ItemMenu>
+              <ItemMenu
+                itemName={<Text id={"LANGUAGE"} />}
+                itemImage={languageIcon}
+                onClick={toggleChangeLanguage}
+              ></ItemMenu>
+              <ItemMenu
+                itemName={<Text id={"FOLLOW_US"} />}
+                itemImage={instagramIcon}
+                onClick={() =>
+                  (window.location.href =
+                    "https://www.instagram.com/chinesetofumagician/?hl=en")
+                }
+              ></ItemMenu>
+              <MenuFooter isLogged={isLogged} logOut={logOut} />
+            </div>
           </div>
         </div>
         <div
@@ -99,9 +118,13 @@ export function MenuWrapper({ children }) {
             width: `${containerWidth}px`,
             opacity: showMenu ? 0.7 : 1,
             transition: "opacity 0.5s ease",
+            minHeight: "100dvh",
+            background: "#ffffff",
           }}
         >
-          {children}
+          <div style={{ background: "#ffffff" }}>
+            {children}
+          </div>
         </div>
       </div>
     </>

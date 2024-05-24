@@ -1,15 +1,13 @@
 import presentIcon from "../assets/present_logo.svg";
 import repeatIcon from "../assets/repeat_logo.svg";
-import arrowRight from "../assets/arrow_right.svg";
-import { Button } from "../components/Button";
 import { useContext } from "react";
 import { HomeLayout } from "../components/HomeLayout/HomeLayout";
 import { UserContext } from "../contexts/UserContext";
 import { Text } from "../components/Text";
+import { ButtonOrderNow } from "../components/ButtonOrderNow";
 
 export function Home() {
-  const { userName } = useContext(UserContext);
-  const userNameUpperCase = userName.split(" ")[0].toUpperCase();
+  const { userNameUpperCase } = useContext(UserContext);
 
   return (
     <>
@@ -28,8 +26,6 @@ export function Home() {
           </p>
         }
       >
-        {/* <Accordion img={presentIcon} title={"Soja Lover"} /> */}
-
         {/* part of the accordion to removel as a new component Panel/Section */}
         <div
           style={{
@@ -61,7 +57,7 @@ export function Home() {
 
         {/* Repeating this button element in Unlogged */}
         <div className="p-8 bg-white">
-          <Button text={<Text id={"ORDER_NOW"} />} icon={arrowRight} inverted />
+          <ButtonOrderNow />
           <div className="flex items-center justify-center mt-5">
             <img
               src={repeatIcon}

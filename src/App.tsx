@@ -2,6 +2,7 @@ import { Router } from "./utils/Router";
 import { UserProvider } from "./contexts/UserContext";
 import { BubbleTeaProvider } from "./contexts/BubbleTeaContext";
 import { MenuWrapper } from "./components/MenuWrapper";
+import { ScrollToTop } from "./utils/ScrollToTop";
 
 const containerStyle = {
   margin: "auto",

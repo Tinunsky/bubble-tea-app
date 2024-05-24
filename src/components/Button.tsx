@@ -2,6 +2,7 @@ export function Button({
   text,
   secondary = false,
   icon = undefined,
+  additionalText = undefined,
   inverted = false,
   onClick,
 }) {
@@ -28,6 +29,23 @@ export function Button({
           alt="icon"
           style={{ maxWidth: "20px", maxHeight: "20px", marginRight: "5px" }}
         />
+      )}
+      {additionalText && (
+        <div
+          style={{
+            color: "white",
+            height: "30px",
+            width: "60px",
+            borderRadius: "25px",
+            fontSize: "1.2em",
+            background: "#2c140f",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {additionalText}
+        </div>
       )}
       <div
         style={{

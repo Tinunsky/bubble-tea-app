@@ -24,6 +24,7 @@ export const textH1Wrapper = {
   fontWeight: "bold",
   paddingLeft: "30px",
   color: "white",
+  lineHeight: "1.1",
 };
 export const textPWrapper = {
   marginTop: "10px",
