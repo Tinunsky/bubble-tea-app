@@ -1,6 +1,15 @@
 import { ReactNode, createContext, useState } from "react";
+import { ATTRIBUTES } from "../constants/ATTRIBUTES";
 
 type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
+
+export type Attribute = (typeof ATTRIBUTES)[keyof typeof ATTRIBUTES];
+
+export type CartItem = {
+  id: string;
+  productAmount: number;
+  attributes: Attribute[];
+};
 
 const defaultBubbleTeaContext = {
   showMenu: false,
@@ -12,6 +21,12 @@ const defaultBubbleTeaContext = {
   isSignupPopupOpen: false,
   setIsSignupPopupOpen: (() => {}) as SetState<boolean>,
   toggleSignupPopup: () => {},
+  isAddedToCart: false,
+  setIsAddedToCart: (() => {}) as SetState<boolean>,
+  totalCartPrice: 0,
+  setTotalCartPrice: (() => {}) as SetState<number>,
+  productsCart: [],
+  setProductsCart: (() => {}) as SetState<CartItem[]>,
 };
 
 export const BubbleTeaContext = createContext(defaultBubbleTeaContext);
@@ -20,6 +35,9 @@ export const BubbleTeaProvider = ({ children }: { children: ReactNode }) => {
   const [showMenu, setShowMenu] = useState(false);
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
   const [isSignupPopupOpen, setIsSignupPopupOpen] = useState(false);
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
+  const [totalCartPrice, setTotalCartPrice] = useState(0);
+  const [productsCart, setProductsCart] = useState([]);
 
   const toggleShowMenu = () => {
     setShowMenu(!showMenu);
@@ -47,6 +65,12 @@ export const BubbleTeaProvider = ({ children }: { children: ReactNode }) => {
         isSignupPopupOpen,
         setIsSignupPopupOpen,
         toggleSignupPopup,
+        isAddedToCart,
+        setIsAddedToCart,
+        totalCartPrice,
+        setTotalCartPrice,
+        productsCart,
+        setProductsCart,
       }}
     >
       {children}

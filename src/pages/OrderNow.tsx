@@ -3,6 +3,9 @@ import arrowLeft from "../assets/arrow_left_white.svg";
 import { Product } from "../components/Product";
 import { paths } from "../utils/Router";
 import { products } from "./../constants/products";
+import { useContext } from "react";
+import { BubbleTeaContext } from "../contexts/BubbleTeaContext";
+import { ButtonViewOrder } from "../components/fixedButtons/ButtonViewOrder";
 
 export const containerStyle = {
   // background: "#fffaf8",
@@ -15,6 +18,8 @@ export const containerStyle = {
 
 export function OrderNow() {
   const navigate = useNavigate();
+  const { isAddedToCart, productsCart } = useContext(BubbleTeaContext);
+  console.log("productsCart", productsCart)
 
   return (
     <>
@@ -44,6 +49,7 @@ export function OrderNow() {
             <Product product={product} />
           </div>
         ))}
+        {isAddedToCart && <ButtonViewOrder />}
       </div>
     </>
   );

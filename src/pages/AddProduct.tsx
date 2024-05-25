@@ -2,34 +2,62 @@ import { useNavigate, useParams } from "react-router-dom";
 import arrowLeft from "../assets/arrow_left.svg";
 import plusCircle from "../assets/plus_circle.svg";
 import minusCircle from "../assets/minus_circle.svg";
+import disabledMinusCircle from "../assets/disabled_minus_circle.svg";
 import { ButtonProductAttribute } from "../components/ButtonProductAttribute";
 import { paths } from "../utils/Router";
-import { ButtonAddToCart } from "../components/ButtonAddToCart";
+import { ButtonAddToCart } from "../components/fixedButtons/ButtonAddToCart";
 import { products } from "./../constants/products";
 import { HotAttribute } from "../components/HotAttribute";
 import { ColdAttribute } from "../components/ColdAttribute";
-import { useState } from "react";
-import { formatPrice } from '../utils/formatPrice';
+import { useContext, useState } from "react";
+import { formatPrice } from "../utils/formatPrice";
+import {
+  Attribute,
+  BubbleTeaContext,
+  CartItem,
+} from "../contexts/BubbleTeaContext";
+import { ATTRIBUTES } from "../constants/ATTRIBUTES";
 
 export const containerStyle = {
-  //   background: "#ffffff",
   backgroundSize: "cover",
   backgroundPosition: "center top",
-  //   minHeight: "100dvh",
   display: "flex",
   flexDirection: "column",
 };
 
 export function AddProduct() {
-  const navigate = useNavigate();
   const { id } = useParams();
-  const productId = Number(id);
-  const product = products?.find((product) => product.id === productId);
-  const productCost = product.price;
+  const product = products?.find((product) => product.id === id);
+  const navigate = useNavigate();
   const [productAmount, setProductAmount] = useState(1);
-  const [isProductAmountMoreThenOne, setIsProductAmountMoreThenOne] =
-    useState(false);
-  const [totalCostPerProduct, setTotalCostPerProduct] = useState(productCost);
+  
+  const [selectedSweetness, setSelectedSweetness] = useState(
+    ATTRIBUTES.sugar50
+  );
+  const defaultTemperature = product.attributes.cold
+    ? ATTRIBUTES.regularIce
+    : ATTRIBUTES.hot45;
+  const [selectedTemperature, setSelectedTemperature] =
+    useState(defaultTemperature);
+
+  const { setTotalCartPrice, productsCart, setProductsCart, setIsAddedToCart } =
+    useContext(BubbleTeaContext);
+
+  const totalCostPerProduct = productAmount * product.price;
+ 
+
+  console.log("selectedSweetness", selectedSweetness);
+  console.log("selectedTemperature", selectedTemperature);
+  console.log("productsCart", productsCart);
+
+  const clickedAddToCart = () => {
+    navigate(paths.orderNow);
+    setIsAddedToCart(true);
+    setTotalCartPrice((prev) => totalCostPerProduct + prev);
+    const attributes: Attribute[] = [selectedSweetness, selectedTemperature];
+    const newCartItem: CartItem = { id, productAmount, attributes };
+    setProductsCart((s) => [...s, newCartItem]);
+  };
 
   const additionalOptionsText = {
     fontSize: "1.6em",
@@ -43,24 +71,16 @@ export function AddProduct() {
   };
 
   const addRestIconsStyle = {
-    height: "20px",
+    height: "22px",
     cursor: "pointer",
-    marginTop: "2px",
-    fontWeight: isProductAmountMoreThenOne ? "bold" : "normal",
   };
 
   function handleAmount(change: number) {
-    if (productAmount + change >= 1) {
-      setProductAmount(productAmount + change);
-      calculateTotalCostPerProduct();
-
-      setIsProductAmountMoreThenOne(true);
+    const newAmount = productAmount + change;
+    if (newAmount >= 1) {
+      setProductAmount(newAmount);
     }
   }
-
-  const calculateTotalCostPerProduct = () => {
-    setTotalCostPerProduct(productCost * productAmount);
-  };
 
   return (
     <div style={containerStyle}>
@@ -92,7 +112,6 @@ export function AddProduct() {
             objectFit: "cover",
             width: "100%",
             opacity: "0.9",
-            // objectPosition: "center bottom",
           }}
         />
         <img
@@ -138,19 +157,72 @@ export function AddProduct() {
 
         <div style={additionalOptionsText}>COLD OR HOT?</div>
         <div>
-          <ButtonProductAttribute name={"No ice"} />
-          <ButtonProductAttribute name={"Less ice"} />
-          <ButtonProductAttribute name={"Regular ice"} />
-          <ButtonProductAttribute name={"Hot (45°C)"} />
-          <ButtonProductAttribute name={"Hot (60°C)"} />
+          {product.attributes.cold && (
+            <>
+              <ButtonProductAttribute
+                name={"No ice"}
+                id={ATTRIBUTES.noIce}
+                setAttributeId={setSelectedTemperature}
+                selectedId={selectedTemperature}
+              />
+              <ButtonProductAttribute
+                name={"Less ice"}
+                id={ATTRIBUTES.lessIce}
+                setAttributeId={setSelectedTemperature}
+                selectedId={selectedTemperature}
+              />
+              <ButtonProductAttribute
+                name={"Regular ice"}
+                id={ATTRIBUTES.regularIce}
+                setAttributeId={setSelectedTemperature}
+                selectedId={selectedTemperature}
+              />
+            </>
+          )}
+          {product.attributes.hot && (
+            <>
+              <ButtonProductAttribute
+                name={"Hot (45°C)"}
+                id={ATTRIBUTES.hot45}
+                setAttributeId={setSelectedTemperature}
+                selectedId={selectedTemperature}
+              />
+              <ButtonProductAttribute
+                name={"Hot (60°C)"}
+                id={ATTRIBUTES.hot60}
+                setAttributeId={setSelectedTemperature}
+                selectedId={selectedTemperature}
+              />
+            </>
+          )}
         </div>
         <div style={{ margin: "10px" }}></div>
         <div style={additionalOptionsText}>HOW SWEET?</div>
         <div>
-          <ButtonProductAttribute name={"No sugar"} />
-          <ButtonProductAttribute name={"30% sugar"} />
-          <ButtonProductAttribute isClicked={true} name={"50% sugar"} />
-          <ButtonProductAttribute name={"70% sugar"} />
+          <ButtonProductAttribute
+            name={"No sugar"}
+            id={ATTRIBUTES.sugar0}
+            setAttributeId={setSelectedSweetness}
+            selectedId={selectedSweetness}
+          />
+          <ButtonProductAttribute
+            name={"30% sugar"}
+            id={ATTRIBUTES.sugar30}
+            setAttributeId={setSelectedSweetness}
+            selectedId={selectedSweetness}
+          />
+          <ButtonProductAttribute
+            name={"50% sugar"}
+            id={ATTRIBUTES.sugar50}
+            setAttributeId={setSelectedSweetness}
+            selectedId={selectedSweetness}
+          />
+          <ButtonProductAttribute
+            name={"70% sugar"}
+            id={ATTRIBUTES.sugar70}
+            setAttributeId={setSelectedSweetness}
+            selectedId={selectedSweetness}
+          />
         </div>
         <div className="separation-line"></div>
         <div
@@ -169,7 +241,9 @@ export function AddProduct() {
             }}
           >
             <div style={textBold}>TOTAL</div>
-            <div className="product-price">{formatPrice(totalCostPerProduct)}</div>
+            <div className="product-price">
+              {formatPrice(totalCostPerProduct)}
+            </div>
           </div>
           <div
             style={{
@@ -179,7 +253,7 @@ export function AddProduct() {
             }}
           >
             <img
-              src={minusCircle}
+              src={productAmount === 1 ? disabledMinusCircle : minusCircle}
               alt="plus"
               style={addRestIconsStyle}
               onClick={() => handleAmount(-1)}
@@ -190,12 +264,11 @@ export function AddProduct() {
                 width: "25px",
                 height: "22px",
                 borderRadius: "5px",
-                marginInline: "10px",
+                marginInline: "15px",
                 textAlign: "center",
                 fontWeight: "bold",
               }}
             >
-              {/* i need to see how to add amount for the product */}
               {productAmount}
             </div>
             <img
@@ -208,16 +281,10 @@ export function AddProduct() {
         </div>
         <div style={{ marginBottom: "100px" }}></div>
       </div>
-      <div
-        style={{
-          position: "fixed",
-          bottom: "20px",
-          width: "500px",
-          marginLeft: "25px",
-        }}
-      >
-        <ButtonAddToCart cost={totalCostPerProduct} />
-      </div>
+      <ButtonAddToCart
+        costPerProduct={totalCostPerProduct}
+        onAddToCartClick={clickedAddToCart}
+      />
     </div>
   );
 }

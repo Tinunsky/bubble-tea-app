@@ -1,0 +1,28 @@
+import { Button } from "../Button";
+import { Text } from "../Text";
+import { useNavigate } from "react-router-dom";
+import { paths } from "../../utils/Router";
+import { formatPrice } from "../../utils/formatPrice";
+import { fixedButtonStyle } from "./fixedButtonStyle";
+import { useContext } from "react";
+import { BubbleTeaContext } from "../../contexts/BubbleTeaContext";
+
+export function ButtonViewOrder() {
+  const navigate = useNavigate();
+  const { totalCartPrice } = useContext(BubbleTeaContext);
+
+  const clickedAddToCart = () => {
+    navigate(paths.orderDetails);
+  };
+
+  return (
+    <div style={fixedButtonStyle}>
+      <Button
+        text={"View order"}
+        additionalText={formatPrice(totalCartPrice)}
+        inverted
+        onClick={clickedAddToCart}
+      />
+    </div>
+  );
+}

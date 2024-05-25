@@ -11,7 +11,7 @@ import soyMilkBackground from "../assets/soy_milk_background.jpg";
 
 export const products = [
   {
-    id: 1,
+    id: "1",
     category: "Super",
     drinkImage: productImage,
     flavourImage: strawberryBackground,
@@ -21,7 +21,7 @@ export const products = [
     attributes: { hot: true, cold: true },
   },
   {
-    id: 3,
+    id: "3",
     category: "Super",
     drinkImage: productImage,
     flavourImage: bananaBackground,
@@ -31,7 +31,7 @@ export const products = [
     attributes: { hot: true, cold: true },
   },
   {
-    id: 4,
+    id: "4",
     category: "Super",
     drinkImage: productImage,
     flavourImage: mangoBackground,
@@ -41,7 +41,7 @@ export const products = [
     attributes: { hot: true, cold: true },
   },
   {
-    id: 5,
+    id: "5",
     category: "Super",
     drinkImage: productImage,
     flavourImage: taroMatchaBackground,
@@ -51,7 +51,7 @@ export const products = [
     attributes: { hot: true, cold: true },
   },
   {
-    id: 6,
+    id: "6",
     category: "Super",
     drinkImage: productImage,
     flavourImage: taroBackground,
@@ -61,24 +61,24 @@ export const products = [
     attributes: { hot: true, cold: true },
   },
   {
-    id: 7,
+    id: "7",
     category: "Super",
     drinkImage: productImage,
     flavourImage: mangoGrapefruitBackground,
     name: "Mango grapefruit",
     description: "Mango and grapefruit blended with soy milk and tapioca balls. Options available to serve it cold or hot.",
     price: 6.5,
-    attributes: { hot: true, cold: true },
+    attributes: { hot: true, cold: false },
   },
   {
-    id: 2,
+    id: "2",
     category: "Latte",
     drinkImage: productImage,
     flavourImage: soyMilkBackground,
     name: "Soy milk",
     description: "bla bla",
     price: 3.5,
-    attributes: { hot: true, cold: true },
+    attributes: { hot: false, cold: true },
   },
 
 ];
