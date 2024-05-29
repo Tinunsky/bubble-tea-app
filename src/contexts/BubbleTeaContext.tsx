@@ -29,7 +29,7 @@ const defaultBubbleTeaContext = {
   totalProductsCost: 0,
   products: [],
   clearCart: () => {},
-  getProductById: (id => {}) as (id: string)=> Product
+  getProductById: ((id) => {}) as (id: string) => Product,
 };
 
 export const BubbleTeaContext = createContext(defaultBubbleTeaContext);
@@ -51,8 +51,8 @@ export const BubbleTeaProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const getProductById = (id: string) => {
-    return products?.find((product) => product.id === id)
-  }
+    return products?.find((product) => product.id === id);
+  };
 
   const totalProductsCost = productsCart.reduce((acc, item) => {
     const itemProduct = getProductById(item.id);
@@ -79,7 +79,6 @@ export const BubbleTeaProvider = ({ children }: { children: ReactNode }) => {
     setIsSignupPopupOpen(!isSignupPopupOpen);
     setIsLoginPopupOpen(false);
   };
-
 
   const clearCart = () => {
     setProductsCart([]);

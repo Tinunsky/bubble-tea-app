@@ -8,6 +8,7 @@ import { formatPrice } from "../utils/formatPrice";
 import { Text } from "../components/Text";
 import { BubbleTeaContext } from "../contexts/BubbleTeaContext";
 import { AttributesList } from "../components/AttributesList";
+import { drinkImages } from "../constants/products";
 
 export const containerStyle = {
   background: "white",
@@ -19,10 +20,10 @@ export const containerStyle = {
 };
 
 export function MyOrders() {
-  const [filteredOrdersByUder, setFilteredOrdersByUser] = useState([]);
+  const [filteredOrdersByUser, setFilteredOrdersByUser] = useState([]);
   const getOrdersByUser = getOrdersByUserFromFarebase();
   const navigate = useNavigate();
-  const { getProductById } = useContext(BubbleTeaContext);
+  const { getProductById, products } = useContext(BubbleTeaContext);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -31,6 +32,8 @@ export function MyOrders() {
     };
     fetchOrders();
   }, []);
+
+  // if (!filteredOrdersByUser.length && !products.length) return <>Loading...</>;
 
   return (
     <>
@@ -67,18 +70,18 @@ export function MyOrders() {
           </div>
         </div>
 
-        {filteredOrdersByUder && (
+        {filteredOrdersByUser && (
           <div>
             <div
               style={{ fontWeight: "bold", fontSize: "1.2em", padding: "35px" }}
             >
-              {filteredOrdersByUder.length > 0 ? (
+              {filteredOrdersByUser.length > 0 ? (
                 <Text id={"RECENT"} />
               ) : (
                 <Text id={"NO_ORDER_HISTORY"} />
               )}
             </div>
-            {filteredOrdersByUder
+            {filteredOrdersByUser
               ?.sort((a, b) => b.updatedAt.seconds - a.updatedAt.seconds)
               .map((order) => (
                 <ul key={order.id}>
@@ -90,7 +93,19 @@ export function MyOrders() {
                       padding: "35px",
                     }}
                   >
-                    <div>order.image</div>
+                    <img
+                      src={
+                        drinkImages[
+                          getProductById(order.myOrder[0].id).drinkImage
+                        ]
+                      }
+                      alt="product image"
+                      style={{
+                        height: "100px",
+                        width: "100px",
+                      }}
+                    />
+
                     <div style={{ display: "flex", flexDirection: "column" }}>
                       <div
                         style={{
@@ -133,15 +148,6 @@ export function MyOrders() {
                                 </div>
                               </div>
                               <div style={{ display: "flex" }}>
-                                {/* <img
-                                src={arrowOptions}
-                                alt="extra options"
-                                style={{
-                                  height: "19px",
-                                  marginRight: "3px",
-                                  
-                                }}
-                              /> */}
                                 <AttributesList
                                   attributes={itemFromOrder.attributes}
                                 ></AttributesList>
