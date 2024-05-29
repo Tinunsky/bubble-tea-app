@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import arrowLeft from "../assets/arrow_left.svg";
 import deleteIcon from "../assets/delete_icon.svg";
 import storeIcon from "../assets/store_icon.svg";
+import arrowOptions from "../assets/arrow_options.svg";
 import { paths } from "../utils/Router";
 import { useContext } from "react";
 import { BubbleTeaContext } from "../contexts/BubbleTeaContext";
@@ -15,8 +16,14 @@ import { Timestamp } from "firebase/firestore";
 
 export function OrderDetails() {
   const navigate = useNavigate();
-  const { productsCart, setProductsCart, totalProductsCost, products, clearCart} =
-    useContext(BubbleTeaContext);
+  const {
+    productsCart,
+    setProductsCart,
+    totalProductsCost,
+    products,
+    clearCart,
+    getProductById,
+  } = useContext(BubbleTeaContext);
   const { userName } = useContext(UserContext);
 
   const uploadOrder = async () => {
@@ -43,7 +50,7 @@ export function OrderDetails() {
 
   const onConfirmOrder = () => {
     uploadOrder().then(() => navigate(paths.myOrders));
-    clearCart()
+    clearCart();
   };
 
   const textBold = { fontWeight: "bold", letterSpacing: "1px" };
@@ -71,12 +78,12 @@ export function OrderDetails() {
             margin: "20px",
           }}
         >
-          YOUR ORDER{" "}
+          <Text id={"YOUR_ORDER"} />
         </div>
         <div
           style={{ fontSize: "1.2em", fontWeight: "bold", marginTop: "30px" }}
         >
-          Sip in:
+          <Text id={"SIP_IN"} />:
         </div>
       </div>
       <div style={{ paddingBottom: "25px" }}>
@@ -104,15 +111,14 @@ export function OrderDetails() {
       <div style={{ backgroundColor: "#f1efef" }}>
         <div className="separation-line"></div>
         <div style={{ fontWeight: "bold", fontSize: "1.2em", padding: "25px" }}>
-          Summary
+          <Text id={"SUMMARY"} />
         </div>
         <div>
           {/* cart item */}
 
           {productsCart.map((cartItem, index) => {
-            const itemProduct = products?.find(
-              (product) => product.id === cartItem.id
-            );
+            const itemProduct = getProductById(cartItem.id)
+            ;
             const totalProductCost = itemProduct.price * cartItem.productAmount;
 
             {
@@ -155,8 +161,16 @@ export function OrderDetails() {
                         <Text id={itemProduct.description} />
                       </div>
                       {cartItem.attributes.map((attribute, key) => (
-                        <div key={key}>
-                          ⁃ <Text id={attribute} />
+                        <div key={key} style={{display: "flex"}}>
+                          <img
+                            src={arrowOptions}
+                            alt="extra options"
+                            style={{
+                              height: "19px",
+                              backgroundColor: "#f1efef",
+                            }}
+                          />
+                          <Text id={attribute} />
                         </div>
                       ))}
                       <div className="mt-5">
@@ -189,13 +203,16 @@ export function OrderDetails() {
             justifyContent: "space-between",
           }}
         >
-          <div>Total</div>
+          <div>
+            {" "}
+            <Text id={"TOTAL"} />
+          </div>
           <div>{formatPrice(totalProductsCost)}</div>
         </div>
         <div className="separation-line"></div>
       </div>
       <div style={{ marginBlock: "30px" }}>
-        <Button text={"Confirm order"} onClick={onConfirmOrder} />
+        <Button text={<Text id={"CONFIRM_ORDER"} />} onClick={onConfirmOrder} />
       </div>
     </>
   );

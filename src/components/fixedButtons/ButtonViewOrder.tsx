@@ -18,7 +18,7 @@ export function ButtonViewOrder() {
   return (
     <div style={fixedButtonStyle}>
       <Button
-        text={"View order"}
+        text={<Text id={"VIEW_ORDER"}/>}
         additionalText={formatPrice(totalProductsCost)}
         inverted
         onClick={clickedAddToCart}

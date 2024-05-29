@@ -4,6 +4,8 @@ import { UserContext } from "../contexts/UserContext";
 import { ItemMenu } from "./ItemMenu";
 import presentIcon from "../assets/present_logo.svg";
 import languageIcon from "../assets/language_icon.svg";
+import englishFlag from "../assets/flag_uk.svg";
+import spanishFlag from "../assets/flag_spain.svg";
 import instagramIcon from "../assets/instagram_logo.svg";
 import orderIcon from "../assets/order_icon.svg";
 import { MenuFooter } from "./MenuFooter";
@@ -19,7 +21,7 @@ const menuWidth = Math.round((containerWidth * 2) / 3);
 export function MenuWrapper({ children }) {
   const { showMenu, setShowMenu, setIsLoginPopupOpen, setIsSignupPopupOpen } =
     useContext(BubbleTeaContext);
-  const { userNameUpperCase, isLogged, logOut, toggleChangeLanguage } =
+  const { userNameUpperCase, isLogged, logOut, toggleChangeLanguage, language } =
     useContext(UserContext);
   const navigate = useNavigate();
 
@@ -107,7 +109,8 @@ export function MenuWrapper({ children }) {
               ></ItemMenu>
               <ItemMenu
                 itemName={<Text id={"LANGUAGE"} />}
-                itemImage={languageIcon}
+                // not working english flag
+                itemImage={language === "ES_LANG" ? englishFlag : spanishFlag}
                 onClick={toggleChangeLanguage}
               ></ItemMenu>
               <ItemMenu

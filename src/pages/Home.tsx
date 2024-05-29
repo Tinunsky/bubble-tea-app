@@ -81,7 +81,7 @@ export function Home() {
               alt={isAddedToCart ? "delete icon" : "repeat icon"}
             />
             <div style={{ paddingTop: "2px" }}>
-              {isAddedToCart ? "Delete order" : <Text id={"REPEAT_AN_ORDER"} />}
+              {isAddedToCart ? <Text id={"DELETE_ORDER"} /> : <Text id={"REPEAT_AN_ORDER"} />}
             </div>
           </div>
         </div>

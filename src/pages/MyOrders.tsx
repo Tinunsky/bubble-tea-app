@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import closeIcon from "../assets/close_icon_black.svg";
+import arrowOptions from "../assets/arrow_options.svg";
 import { getOrdersByUserFromFarebase } from "../utils/getOrdersByUserFromFarebase";
 import { useNavigate } from "react-router-dom";
 import { paths } from "../utils/Router";
 import storeIcon from "../assets/store_icon.svg";
 import { formatPrice } from "../utils/formatPrice";
+import { Text } from "../components/Text";
+import { BubbleTeaContext } from "../contexts/BubbleTeaContext";
 
 export const containerStyle = {
   background: "white",
@@ -19,6 +22,7 @@ export function MyOrders() {
   const [filteredOrdersByUder, setFilteredOrdersByUser] = useState([]);
   const getOrdersByUser = getOrdersByUserFromFarebase();
   const navigate = useNavigate();
+  const { getProductById } = useContext(BubbleTeaContext);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -42,8 +46,12 @@ export function MyOrders() {
           }}
         >
           <div>
-            <p>MY</p>
-            <p>ORDERS.</p>
+            <p>
+              <Text id={"MY"} />
+            </p>
+            <p>
+              <Text id={"ORDERS"} />.
+            </p>
           </div>
           <div>
             <img
@@ -64,56 +72,120 @@ export function MyOrders() {
             <div
               style={{ fontWeight: "bold", fontSize: "1.2em", padding: "35px" }}
             >
-              {filteredOrdersByUder.length > 0 ? "Recent" : "No order history"}
+              {filteredOrdersByUder.length > 0 ? (
+                <Text id={"RECENT"} />
+              ) : (
+                <Text id={"NO_ORDER_HISTORY"} />
+              )}
             </div>
+            {filteredOrdersByUder
+              ?.sort((a, b) => b.updatedAt.seconds - a.updatedAt.seconds)
+              .map((order) => (
+                <ul key={order.id}>
+                  <div className="short-separation-line"></div>
+                  <li
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      padding: "35px",
+                    }}
+                  >
+                    <div>order.image</div>
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <img
+                          src={storeIcon}
+                          alt="store icon"
+                          style={{
+                            height: "25px",
+                            padding: "5px",
+                            marginRight: "5px",
+                            backgroundColor: "#f1efef",
+                            borderRadius: "3px",
+                          }}
+                        />
+                        <div style={{ margin: "5px", fontWeight: "bolder" }}>
+                          {order.takeAway ? (
+                            <Text id={"TAKE_AWAY"} />
+                          ) : (
+                            <Text id={"SIP_IN"} />
+                          )}
+                        </div>
+                        <div style={{ margin: "5px", color: "#817b7a" }}>
+                          • {formatPrice(order.totalOrderCost)}
+                        </div>
+                      </div>
 
-                        {/* <div>
-                    {order.fullName} - {order.takeAway ? "Take Away" : "Eat In"}{" "}
-                    - Order number {order.id} -
-                    {order.isPaid ? "Payed" : "Pay at local"} -
-          </div>  */}
-
-
-            {filteredOrdersByUder?.map((order) => (
-              <ul>
-                <div className="short-separation-line"></div>
-                <li
-                  key={order.id}
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    padding: "35px",
-                  }}
-                >
-                  <div>order.image</div>
-                  <div style={{ display: "flex", flexDirection: "column" }}>
+                      <div style={{ marginBlock: "10px" }}>
+                        {order.myOrder.map((itemFromOrder, itemFromOrderId) => (
+                          <div key={itemFromOrderId}>
+                            <div style={{ marginBlock: "10px" }}>
+                              <div style={{ display: "flex" }}>
+                                <div>{itemFromOrder.productAmount}</div>
+                                <div style={{ marginInline: "2px" }}>x</div>
+                                <div>
+                                  {getProductById(itemFromOrder.id).name}
+                                </div>
+                              </div>
+                              <div style={{ display: "flex" }}>
+                                {/* <img
+                                src={arrowOptions}
+                                alt="extra options"
+                                style={{
+                                  height: "19px",
+                                  marginRight: "3px",
+                                  
+                                }}
+                              /> */}
+                                <div>
+                                  {itemFromOrder.attributes.map(
+                                    (attribute, key) => (
+                                      <div
+                                        key={key}
+                                        style={{ display: "flex" }}
+                                      >
+                                        <img
+                                          src={arrowOptions}
+                                          alt="extra options"
+                                          style={{
+                                            height: "19px",
+                                            backgroundColor: "#f1efef",
+                                          }}
+                                        />
+                                        <Text id={attribute} />
+                                      </div>
+                                    )
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                     <div
                       style={{
+                        width: "70px",
+                        height: "30px",
+                        borderRadius: "5px",
+                        backgroundColor: "#f1efef",
+                        marginBlock: "auto",
+                        fontWeight: "bold",
+                        justifyContent: "center",
+                        alignItems: "center",
                         display: "flex",
-                        justifyContent: "space-between",
                       }}
                     >
-                      <img
-                        src={storeIcon}
-                        alt="store icon"
-                        style={{
-                          height: "25px",
-                          padding: "5px",
-                          marginRight: "10px",
-                          backgroundColor: "#f1efef",
-                          borderRadius: "3px",
-                        }}
-                      />
-                      <div style={{margin: "5px"}}>{order.takeAway ? "Take Away" : "Sip In"}</div>
-                      <div>order.price</div>
+                      <Text id={"REPEAT"} />
                     </div>
-                    <div>order.items</div>
-                    <div>date</div>
-                  </div>
-                  <div>button</div>
-                </li>
-              </ul>
-            ))}
+                  </li>
+                </ul>
+              ))}
           </div>
         )}
       </div>

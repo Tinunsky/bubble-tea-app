@@ -155,24 +155,24 @@ export function AddProduct() {
           <div className="separation-line"></div>
         </div>
 
-        <div style={additionalOptionsText}>COLD OR HOT?</div>
+        <div style={additionalOptionsText}><Text id={"COLD_OR_HOT"} /></div>
         <div>
           {product.attributes.cold && (
             <>
               <ButtonProductAttribute
-                name={"No ice"}
+                name={<Text id={"noIce"} />}
                 id={ATTRIBUTES.noIce}
                 setAttributeId={setSelectedTemperature}
                 selectedId={selectedTemperature}
               />
               <ButtonProductAttribute
-                name={"Less ice"}
+                name={<Text id={"lessIce"} />}
                 id={ATTRIBUTES.lessIce}
                 setAttributeId={setSelectedTemperature}
                 selectedId={selectedTemperature}
               />
               <ButtonProductAttribute
-                name={"Regular ice"}
+                name={<Text id={"regularIce"} />}
                 id={ATTRIBUTES.regularIce}
                 setAttributeId={setSelectedTemperature}
                 selectedId={selectedTemperature}
@@ -182,13 +182,13 @@ export function AddProduct() {
           {product.attributes.hot && (
             <>
               <ButtonProductAttribute
-                name={"Hot (45°C)"}
+                name={<Text id={"hot45"} />}
                 id={ATTRIBUTES.hot45}
                 setAttributeId={setSelectedTemperature}
                 selectedId={selectedTemperature}
               />
               <ButtonProductAttribute
-                name={"Hot (60°C)"}
+                name={<Text id={"hot60"} />}
                 id={ATTRIBUTES.hot60}
                 setAttributeId={setSelectedTemperature}
                 selectedId={selectedTemperature}
@@ -197,28 +197,28 @@ export function AddProduct() {
           )}
         </div>
         <div style={{ margin: "10px" }}></div>
-        <div style={additionalOptionsText}>HOW SWEET?</div>
+        <div style={additionalOptionsText}><Text id={"HOW_SWEET"} /></div>
         <div>
           <ButtonProductAttribute
-            name={"No sugar"}
+            name={<Text id={"sugar0"} />}
             id={ATTRIBUTES.sugar0}
             setAttributeId={setSelectedSweetness}
             selectedId={selectedSweetness}
           />
           <ButtonProductAttribute
-            name={"30% sugar"}
+            name={<Text id={"sugar30"} />}
             id={ATTRIBUTES.sugar30}
             setAttributeId={setSelectedSweetness}
             selectedId={selectedSweetness}
           />
           <ButtonProductAttribute
-            name={"50% sugar"}
+            name={<Text id={"sugar50"} />}
             id={ATTRIBUTES.sugar50}
             setAttributeId={setSelectedSweetness}
             selectedId={selectedSweetness}
           />
           <ButtonProductAttribute
-            name={"70% sugar"}
+            name={<Text id={"sugar70"} />}
             id={ATTRIBUTES.sugar70}
             setAttributeId={setSelectedSweetness}
             selectedId={selectedSweetness}
@@ -240,7 +240,7 @@ export function AddProduct() {
               alignItems: "center",
             }}
           >
-            <div style={textBold}>TOTAL</div>
+            <div style={textBold}><Text id={"TOTAL"} /></div>
             <div className="product-price">
               {formatPrice(totalCostPerProduct)}
             </div>

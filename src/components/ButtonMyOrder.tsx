@@ -8,7 +8,7 @@ export function ButtonMyOrder() {
     const navigate = useNavigate();
     
     return (
-      <Button text={"My order (1)"} icon={arrowRight} inverted onClick={() => navigate(paths.orderDetails)} />
+      <Button text={<Text id={"MY_ORDER_1"}/>} icon={arrowRight} inverted onClick={() => navigate(paths.orderDetails)} />
     );
   }
   
