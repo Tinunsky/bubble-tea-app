@@ -60,6 +60,7 @@ export const ES_TRANSLATION = {
   SOJA: "SOJA",
   LOVERS: "LOVERS",
   ORDER_10_BUBBLE_TEAS: "Pide 10 Bubble Teas y te invitamos al número 11",
+  NO_PRODUCTS_IN_THE_CART: "No tienes productos en tu carrito",
 
 
 

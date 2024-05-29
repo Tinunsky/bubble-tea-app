@@ -29,10 +29,10 @@ export function Router() {
       <Routes>
         <Route element={<ProtectedRoute isActive={isLogged} />}>
           <Route path={paths.home} element={<Home />} />
+          <Route path={paths.sojaLovers} element={<SojaLovers />} />
+          <Route path={paths.myOrders} element={<MyOrders />} />
         </Route>
         <Route path={paths.unlogged} element={<Unlogged />} />
-        <Route path={paths.sojaLovers} element={<SojaLovers />} />
-        <Route path={paths.myOrders} element={<MyOrders />} />
         <Route path={paths.orderNow} element={<OrderNow />} />
         <Route path={paths.product} element={<AddProduct />} />
         <Route path={paths.orderDetails} element={<OrderDetails />} />

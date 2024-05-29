@@ -58,6 +58,7 @@ export const EN_TRANSLATION = {
   SOJA: "SOJA",
   LOVERS: "LOVERS",
   ORDER_10_BUBBLE_TEAS: "Order 10 Bubble Teas and get the 11th for free",
+  NO_PRODUCTS_IN_THE_CART: "You dont have any product in the cart",
 
   // descriptions
   STRAWBERRY_DESCRIPTION: "Strawberries, soy milk, tapioca balls.",

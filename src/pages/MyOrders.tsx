@@ -9,6 +9,7 @@ import { Text } from "../components/Text";
 import { BubbleTeaContext } from "../contexts/BubbleTeaContext";
 import { AttributesList } from "../components/AttributesList";
 import { drinkImages } from "../constants/products";
+import bubbleTeaHome from "../assets/home_bubbletea.jpg";
 
 export const containerStyle = {
   background: "white",
@@ -39,7 +40,19 @@ export function MyOrders() {
     navigate(paths.orderDetails);
   };
 
+  console.log(filteredOrdersByUser);
   // if (!filteredOrdersByUser.length && !products.length) return <>Loading...</>;
+
+  const isRecent = (timestamp) => {
+    const timeDifference = 1000 * 60 * 10;
+    const now = new Date();
+    const updatedAt = new Date(
+      timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000
+    );
+
+    console.log("timeDifference", now, updatedAt);
+    return updatedAt.getTime() + timeDifference > now.getTime();
+  };
 
   return (
     <>
@@ -78,7 +91,6 @@ export function MyOrders() {
 
         {filteredOrdersByUser && (
           <div>
-            prueba
             <div
               style={{ fontWeight: "bold", fontSize: "1.2em", padding: "35px" }}
             >
@@ -93,11 +105,35 @@ export function MyOrders() {
               .map((order) => (
                 <ul key={order.id}>
                   <div className="short-separation-line"></div>
+                  {!!isRecent(order.updatedAt) && (
+                    <div
+                      style={{
+                        borderRadius: "10px",
+                        height: "50px",
+                        width: "80%",
+                        display: "flex",
+                        justifyContent: "center",
+                        margin: "auto",
+                        background: `url(${bubbleTeaHome})  0% 16% / 130%`,
+                      }}
+                    >
+                      <div
+                        style={{
+                          color: "white",
+                          textAlign: "center",
+                          marginTop: "20px",
+                        }}
+                      >
+                        IN PREPARATION
+                      </div>
+                    </div>
+                  )}
+
                   <li
                     style={{
                       display: "flex",
                       justifyContent: "space-between",
-                      padding: "35px",
+                      padding: "25px 35px",
                     }}
                   >
                     <img

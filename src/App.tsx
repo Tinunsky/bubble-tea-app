@@ -15,7 +15,7 @@ export function App() {
   return (
     <div
       style={containerStyle}
-      className={`xs:w-[100dvw] sm:w-[550px] lg:w-[915px]`}
+      className={`xs:w-[100dvw] sm:w-[550px] lg:w-[856px]`}
     >
       <UserProvider>
         <BubbleTeaProvider>

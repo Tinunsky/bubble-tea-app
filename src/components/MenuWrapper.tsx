@@ -3,7 +3,6 @@ import { BubbleTeaContext } from "../contexts/BubbleTeaContext";
 import { UserContext } from "../contexts/UserContext";
 import { ItemMenu } from "./ItemMenu";
 import presentIcon from "../assets/present_logo.svg";
-import languageIcon from "../assets/language_icon.svg";
 import englishFlag from "../assets/flag_uk.svg";
 import spanishFlag from "../assets/flag_spain.svg";
 import instagramIcon from "../assets/instagram_logo.svg";
@@ -13,9 +12,11 @@ import { Text } from "../components/Text";
 import { MenuHeader } from "./MenuHeader";
 import { paths } from "../utils/Router";
 import { useNavigate } from "react-router-dom";
+import { ES_LANG } from "../constants/languageEs";
 
 const containerWidth = 550;
-const menuWidth = Math.round((containerWidth * 2) / 3);
+// const menuWidth = Math.round((containerWidth * 2) / 3);
+const menuWidth = 306;
 
 export function MenuWrapper({ children }) {
   const { showMenu, setShowMenu, setIsLoginPopupOpen, setIsSignupPopupOpen } =
@@ -41,8 +42,7 @@ export function MenuWrapper({ children }) {
   };
 
   const menuWrapperStyle = {
-    // width: `${menuWidth + containerWidth}px`,
-    width: "calc(365px + 100dvw)",
+    width: "calc(306px + 100dvw)",
     display: "flex",
     position: "relative",
     transition: "all 0.5s ease",
@@ -53,12 +53,13 @@ export function MenuWrapper({ children }) {
   return (
     <>
       <div
-        className={showMenu ? `left-0` : `-left-[366px] lg:left-0 lg:w-[915px]`}
+        className={showMenu ? `left-0` : `-left-[306px] lg:left-0 lg:w-[915px]`}
         style={menuWrapperStyle}
       >
         <div
           style={{
             width: `${menuWidth}px`,
+            // maxWidth: "80dvw",
             flex: 1,
             backgroundColor: "#fff",
             borderRight: "2px solid black",
@@ -67,10 +68,9 @@ export function MenuWrapper({ children }) {
           <div
             className="lg:fixed"
             style={{
-              // position: showMenu ? "fixed" : "inherit",
-
               height: "100dvh",
               width: `${menuWidth}px`,
+              // maxWidth: "80dvw",
               display: "flex",
               flexDirection: "column",
             }}
@@ -114,7 +114,7 @@ export function MenuWrapper({ children }) {
               <ItemMenu
                 itemName={<Text id={"LANGUAGE"} />}
                 // not working english flag
-                itemImage={language === "ES_LANG" ? englishFlag : spanishFlag}
+                itemImage={language === ES_LANG ? spanishFlag : englishFlag}
                 onClick={toggleChangeLanguage}
               ></ItemMenu>
               <ItemMenu
@@ -133,7 +133,6 @@ export function MenuWrapper({ children }) {
           id="routerWrapper"
           className="lg:w-[550px]"
           style={{
-            // width: `${containerWidth}px`,
             width: "100dvw",
             opacity: showMenu ? 0.7 : 1,
             transition: "opacity 0.5s ease",
@@ -141,7 +140,11 @@ export function MenuWrapper({ children }) {
             background: "#ffffff",
           }}
         >
-          <div style={{ background: "#ffffff", maxWidth: "550px" }}>
+          <div
+            className="sm:max-w-[550px]"
+            style={{ background: "#ffffff" }}
+            onClick={() => showMenu && setShowMenu(false)}
+          >
             {children}
           </div>
         </div>

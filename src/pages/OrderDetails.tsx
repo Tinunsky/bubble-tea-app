@@ -24,8 +24,11 @@ export function OrderDetails() {
     products,
     clearCart,
     getProductById,
+    setIsLoginPopupOpen,
+    setIsSignupPopupOpen,
+    setShowMenu,
   } = useContext(BubbleTeaContext);
-  const { userName } = useContext(UserContext);
+  const { userName, isLogged } = useContext(UserContext);
 
   const uploadOrder = async () => {
     const newOrder = {
@@ -50,8 +53,14 @@ export function OrderDetails() {
   };
 
   const onConfirmOrder = () => {
-    uploadOrder().then(() => navigate(paths.myOrders));
-    clearCart();
+    if (isLogged) {
+      uploadOrder().then(() => clearCart());
+    } else {
+      setIsLoginPopupOpen(true);
+      setIsSignupPopupOpen(false);
+      setShowMenu(false);
+    }
+    navigate(paths.myOrders);
   };
 
   const textBold = { fontWeight: "bold", letterSpacing: "1px" };
@@ -112,7 +121,11 @@ export function OrderDetails() {
       <div style={{ backgroundColor: "#f1efef" }}>
         <div className="separation-line"></div>
         <div style={{ fontWeight: "bold", fontSize: "1.2em", padding: "25px" }}>
-          <Text id={"SUMMARY"} />
+          {productsCart.length ? (
+            <Text id={"SUMMARY"} />
+          ) : (
+            <Text id={"NO_PRODUCTS_IN_THE_CART"} />
+          )}
         </div>
         <div>
           {/* cart item */}
@@ -202,7 +215,12 @@ export function OrderDetails() {
         <div className="separation-line"></div>
       </div>
       <div style={{ marginBlock: "30px" }}>
-        <Button text={<Text id={"CONFIRM_ORDER"} />} onClick={onConfirmOrder} />
+        {!!productsCart.length && (
+          <Button
+            text={<Text id={"CONFIRM_ORDER"} />}
+            onClick={onConfirmOrder}
+          />
+        )}
       </div>
     </>
   );
