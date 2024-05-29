@@ -14,17 +14,20 @@ import { MenuHeader } from "./MenuHeader";
 import { paths } from "../utils/Router";
 import { useNavigate } from "react-router-dom";
 
-
 const containerWidth = 550;
 const menuWidth = Math.round((containerWidth * 2) / 3);
 
 export function MenuWrapper({ children }) {
   const { showMenu, setShowMenu, setIsLoginPopupOpen, setIsSignupPopupOpen } =
     useContext(BubbleTeaContext);
-  const { userNameUpperCase, isLogged, logOut, toggleChangeLanguage, language } =
-    useContext(UserContext);
+  const {
+    userNameUpperCase,
+    isLogged,
+    logOut,
+    toggleChangeLanguage,
+    language,
+  } = useContext(UserContext);
   const navigate = useNavigate();
-
 
   const openLoginPopup = () => {
     setIsLoginPopupOpen(true);
@@ -33,12 +36,13 @@ export function MenuWrapper({ children }) {
   };
 
   const handleRedirect = (page) => {
-    navigate(page)
+    navigate(page);
     setShowMenu(false);
-  }
+  };
 
   const menuWrapperStyle = {
-    width: `${menuWidth + containerWidth}px`,
+    // width: `${menuWidth + containerWidth}px`,
+    width: "calc(365px + 100dvw)",
     display: "flex",
     position: "relative",
     transition: "all 0.5s ease",
@@ -49,7 +53,7 @@ export function MenuWrapper({ children }) {
   return (
     <>
       <div
-        className={showMenu ? `left-0` : `-left-2/3 lg:left-0`}
+        className={showMenu ? `left-0` : `-left-[366px] lg:left-0 lg:w-[915px]`}
         style={menuWrapperStyle}
       >
         <div
@@ -126,15 +130,18 @@ export function MenuWrapper({ children }) {
           </div>
         </div>
         <div
+          id="routerWrapper"
+          className="lg:w-[550px]"
           style={{
-            width: `${containerWidth}px`,
+            // width: `${containerWidth}px`,
+            width: "100dvw",
             opacity: showMenu ? 0.7 : 1,
             transition: "opacity 0.5s ease",
             minHeight: "100dvh",
             background: "#ffffff",
           }}
         >
-          <div style={{ background: "#ffffff" }}>
+          <div style={{ background: "#ffffff", maxWidth: "550px" }}>
             {children}
           </div>
         </div>

@@ -13,13 +13,16 @@ const containerStyle = {
 
 export function App() {
   return (
-    <div style={containerStyle} className={`w-[550px] lg:w-[916px]`}>
+    <div
+      style={containerStyle}
+      className={`xs:w-[100dvw] sm:w-[550px] lg:w-[915px]`}
+    >
       <UserProvider>
         <BubbleTeaProvider>
-        <BrowserRouter>
-          <MenuWrapper>
-            <Router />
-          </MenuWrapper>
+          <BrowserRouter>
+            <MenuWrapper>
+              <Router />
+            </MenuWrapper>
           </BrowserRouter>
         </BubbleTeaProvider>
       </UserProvider>
