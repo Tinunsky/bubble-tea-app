@@ -12,11 +12,11 @@ export function ButtonProductAttribute({
   // let isSelected = false;
   // if (selectedId === id) isSelected = true;
   const isSelected = selectedId === id;
-  console.log("id", id);
-  console.log("selectedId", selectedId);
-  console.log("isSelected", isSelected);
+  // console.log("id", id);
+  // console.log("selectedId", selectedId);
+  // console.log("isSelected", isSelected);
 
-  console.log("-------------------");
+  // console.log("-------------------");
   const clickProductAttribute = () => {
     // setIsClicked(!isClicked);
     setAttributeId(id);

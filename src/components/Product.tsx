@@ -2,11 +2,13 @@ import { generatePath, useNavigate } from "react-router-dom";
 import { paths } from "../utils/Router";
 import { ColdAttribute } from "./ColdAttribute";
 import { HotAttribute } from "./HotAttribute";
-import { formatPrice } from './../utils/formatPrice';
+import { formatPrice } from "./../utils/formatPrice";
+import { Text } from "./Text";
+import { drinkImages } from "../constants/products.tsx";
+import { flavourImages } from "../constants/products.tsx";
 
 export function Product({ product }) {
   const navigate = useNavigate();
-
   function handleClick() {
     const targetProductPath = generatePath(paths.product, { id: product.id });
     navigate(targetProductPath);
@@ -39,7 +41,7 @@ export function Product({ product }) {
         }}
       >
         <img
-          src={product.flavourImage}
+          src={flavourImages[product.flavourImage]}
           alt="flavour background image"
           style={{
             height: "250px",
@@ -50,10 +52,10 @@ export function Product({ product }) {
           }}
         />
         <img
-          src={product.drinkImage}
+          src={drinkImages[product.drinkImage]}
           alt="product image"
           style={{
-            height: "200px",
+            height: "240px",
             width: "200px",
             objectFit: "cover",
             position: "absolute",
@@ -67,7 +69,9 @@ export function Product({ product }) {
         <div id="product-name" className="product-name">
           {product.name.toUpperCase()}
         </div>
-        <div id="product-description" className="product-description">{product.description}</div>
+        <div id="product-description" className="product-description">
+          <Text id={product.description} />
+        </div>
         <div
           style={{
             paddingTop: "20px",

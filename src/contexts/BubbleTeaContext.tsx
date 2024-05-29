@@ -1,5 +1,7 @@
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext, useEffect, useState } from "react";
 import { ATTRIBUTES } from "../constants/ATTRIBUTES";
+import { Product } from "../constants/products.tsx";
+import { getFirebaseDoc } from "../utils/getFirebaseDoc.tsx";
 
 type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 
@@ -22,11 +24,11 @@ const defaultBubbleTeaContext = {
   setIsSignupPopupOpen: (() => {}) as SetState<boolean>,
   toggleSignupPopup: () => {},
   isAddedToCart: false,
-  setIsAddedToCart: (() => {}) as SetState<boolean>,
-  totalCartPrice: 0,
-  setTotalCartPrice: (() => {}) as SetState<number>,
   productsCart: [],
   setProductsCart: (() => {}) as SetState<CartItem[]>,
+  totalProductsCost: 0,
+  products: [],
+  clearCart: () => {},
 };
 
 export const BubbleTeaContext = createContext(defaultBubbleTeaContext);
@@ -35,9 +37,29 @@ export const BubbleTeaProvider = ({ children }: { children: ReactNode }) => {
   const [showMenu, setShowMenu] = useState(false);
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
   const [isSignupPopupOpen, setIsSignupPopupOpen] = useState(false);
-  const [isAddedToCart, setIsAddedToCart] = useState(false);
-  const [totalCartPrice, setTotalCartPrice] = useState(0);
-  const [productsCart, setProductsCart] = useState([]);
+  const [productsCart, setProductsCart] = useState(
+    JSON.parse(localStorage.getItem("cart")) || []
+  );
+  const defaultProducts: Product[] = [];
+  const [products, setProducts] = useState(defaultProducts);
+
+  const fetchProducts = async () => {
+    getFirebaseDoc("products").then((data) => {
+      setProducts(data.products);
+    });
+  };
+
+  const totalProductsCost = productsCart.reduce((acc, item) => {
+    const itemProduct = products?.find((product) => product.id === item.id);
+    return acc + item.productAmount * itemProduct?.price;
+  }, 0);
+  console.log("totalProductsCost", totalProductsCost);
+  const isAddedToCart = !!productsCart.length;
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(productsCart));
+    fetchProducts();
+  }, [productsCart]);
 
   const toggleShowMenu = () => {
     setShowMenu(!showMenu);
@@ -53,6 +75,11 @@ export const BubbleTeaProvider = ({ children }: { children: ReactNode }) => {
     setIsLoginPopupOpen(false);
   };
 
+
+  const clearCart = () => {
+    setProductsCart([]);
+  };
+
   return (
     <BubbleTeaContext.Provider
       value={{
@@ -66,11 +93,11 @@ export const BubbleTeaProvider = ({ children }: { children: ReactNode }) => {
         setIsSignupPopupOpen,
         toggleSignupPopup,
         isAddedToCart,
-        setIsAddedToCart,
-        totalCartPrice,
-        setTotalCartPrice,
         productsCart,
         setProductsCart,
+        totalProductsCost,
+        products,
+        clearCart,
       }}
     >
       {children}

@@ -1,13 +1,26 @@
 import presentIcon from "../assets/present_logo.svg";
 import repeatIcon from "../assets/repeat_logo.svg";
+import deleteImage from "../assets/delete_icon.svg";
 import { useContext } from "react";
 import { HomeLayout } from "../components/HomeLayout/HomeLayout";
 import { UserContext } from "../contexts/UserContext";
 import { Text } from "../components/Text";
 import { ButtonOrderNow } from "../components/ButtonOrderNow";
+import { BubbleTeaContext } from "../contexts/BubbleTeaContext";
+import { ButtonMyOrder } from "../components/ButtonMyOrder";
+import { useNavigate } from "react-router-dom";
+import { paths } from "../utils/Router";
 
 export function Home() {
   const { userNameUpperCase } = useContext(UserContext);
+  const { isAddedToCart, clearCart } = useContext(BubbleTeaContext);
+  const navigate = useNavigate();
+
+
+  const handleClick = () => {
+    isAddedToCart ? clearCart() : navigate(paths.myOrders)
+
+  }
 
   return (
     <>
@@ -56,16 +69,19 @@ export function Home() {
         </div>
 
         {/* Repeating this button element in Unlogged */}
-        <div className="p-8 bg-white">
-          <ButtonOrderNow />
-          <div className="flex items-center justify-center mt-5">
+        <div style={{ padding: "32px", backgroundColor: 'white', cursor: "pointer" }}>
+          {isAddedToCart ? <ButtonMyOrder /> : <ButtonOrderNow />}
+          <div
+            className="flex items-center justify-center mt-5"
+            onClick={handleClick}
+          >
             <img
-              src={repeatIcon}
-              style={{ width: "15px", height: "15px" }}
-              alt="repeat icon"
+              src={isAddedToCart ? deleteImage : repeatIcon}
+              style={{ height: "20px", marginRight: "5px" }}
+              alt={isAddedToCart ? "delete icon" : "repeat icon"}
             />
             <div style={{ paddingTop: "2px" }}>
-              <Text id={"REPEAT_AN_ORDER"} />
+              {isAddedToCart ? "Delete order" : <Text id={"REPEAT_AN_ORDER"} />}
             </div>
           </div>
         </div>

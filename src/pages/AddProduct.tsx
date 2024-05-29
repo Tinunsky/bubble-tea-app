@@ -6,7 +6,6 @@ import disabledMinusCircle from "../assets/disabled_minus_circle.svg";
 import { ButtonProductAttribute } from "../components/ButtonProductAttribute";
 import { paths } from "../utils/Router";
 import { ButtonAddToCart } from "../components/fixedButtons/ButtonAddToCart";
-import { products } from "./../constants/products";
 import { HotAttribute } from "../components/HotAttribute";
 import { ColdAttribute } from "../components/ColdAttribute";
 import { useContext, useState } from "react";
@@ -17,6 +16,9 @@ import {
   CartItem,
 } from "../contexts/BubbleTeaContext";
 import { ATTRIBUTES } from "../constants/ATTRIBUTES";
+import { flavourImages } from "../constants/products.tsx";
+import { drinkImages } from "../constants/products.tsx";
+import { Text } from "../components/Text";
 
 export const containerStyle = {
   backgroundSize: "cover",
@@ -27,33 +29,31 @@ export const containerStyle = {
 
 export function AddProduct() {
   const { id } = useParams();
+  const { productsCart, setProductsCart, products } =
+    useContext(BubbleTeaContext);
   const product = products?.find((product) => product.id === id);
   const navigate = useNavigate();
   const [productAmount, setProductAmount] = useState(1);
-  
+
   const [selectedSweetness, setSelectedSweetness] = useState(
     ATTRIBUTES.sugar50
   );
-  const defaultTemperature = product.attributes.cold
+  const defaultTemperature = product?.attributes.cold
     ? ATTRIBUTES.regularIce
     : ATTRIBUTES.hot45;
   const [selectedTemperature, setSelectedTemperature] =
     useState(defaultTemperature);
 
-  const { setTotalCartPrice, productsCart, setProductsCart, setIsAddedToCart } =
-    useContext(BubbleTeaContext);
+  const totalCostPerProduct = productAmount * product?.price;
 
-  const totalCostPerProduct = productAmount * product.price;
- 
-
-  console.log("selectedSweetness", selectedSweetness);
-  console.log("selectedTemperature", selectedTemperature);
+  // console.log("selectedSweetness", selectedSweetness);
+  // console.log("selectedTemperature", selectedTemperature);
   console.log("productsCart", productsCart);
 
   const clickedAddToCart = () => {
     navigate(paths.orderNow);
-    setIsAddedToCart(true);
-    setTotalCartPrice((prev) => totalCostPerProduct + prev);
+    // setIsAddedToCart(true);
+    // setTotalCartPrice((prev) => totalCostPerProduct + prev);
     const attributes: Attribute[] = [selectedSweetness, selectedTemperature];
     const newCartItem: CartItem = { id, productAmount, attributes };
     setProductsCart((s) => [...s, newCartItem]);
@@ -81,7 +81,7 @@ export function AddProduct() {
       setProductAmount(newAmount);
     }
   }
-
+  if (!product) return <>Loading...</>;
   return (
     <div style={containerStyle}>
       <div
@@ -105,7 +105,7 @@ export function AddProduct() {
           onClick={() => navigate(paths.orderNow)}
         />
         <img
-          src={product.flavourImage}
+          src={flavourImages[product.flavourImage]}
           alt="flavour background image"
           style={{
             height: "300px",
@@ -115,7 +115,7 @@ export function AddProduct() {
           }}
         />
         <img
-          src={product.drinkImage}
+          src={drinkImages[product.drinkImage]}
           alt="product image"
           style={{
             height: "200px",
@@ -146,7 +146,7 @@ export function AddProduct() {
             {formatPrice(product.price)}
           </div>
           <div id="product-description" className="product-description">
-            {product.description}
+            <Text id={product.description} />
           </div>
           <div id="attributes-options" className="attributes-options py-5">
             {product.attributes.hot && <HotAttribute />}

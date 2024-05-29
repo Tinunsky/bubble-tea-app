@@ -7,7 +7,8 @@ export const EN_TRANSLATION = {
   HEALTHIER_OPTIONS: "HEALTHIER OPTIONS",
   WITH_EVERY_SIP: "WITH EVERY SIP",
   MADE_WITH_HOMEMADE_PURE_SOY_MILK: "Made with homemade pure soy milk",
-  PERFECT_FOR_VEGANS_AND_LACTOSE_INTOLERANT: "Perfect for vegans and lactose intolerant",
+  PERFECT_FOR_VEGANS_AND_LACTOSE_INTOLERANT:
+    "Perfect for vegans and lactose intolerant",
   LOGIN_WITH_EMAIL: "Login with Email",
   LOGIN_WITH_GOOGLE: "Login with Google",
   SIGN_UP_WITH_EMAIL: "Sign up with Email",
@@ -21,7 +22,8 @@ export const EN_TRANSLATION = {
   CANT_REMEBER_MY_PASSWORD: "Can't remember my password",
   DONT_HAVE_AN_ACCOUNT_CREATE_ONE: "Don't have an account? Create one ",
   EMAIL_SENT_CHECK_YOUR_MAILBOX: "Email sent. Check your mailbox.",
-  ERROR_FILL_IN_YOUR_EMAIL_IN_THE_FORM_FIRST: "Error: Fill in your email in the form first.",
+  ERROR_FILL_IN_YOUR_EMAIL_IN_THE_FORM_FIRST:
+    "Error: Fill in your email in the form first.",
   HERE: "here",
   NICE_TO: "NICE TO",
   MEET_YOU: "MEET YOU",
@@ -37,11 +39,34 @@ export const EN_TRANSLATION = {
   FOLLOW_US: "Follow us",
   YOU_ARE_NOT: "YOU ARE NOT",
   LOGGED_IN: "LOGGED IN",
-
-
-
-
-
-
-
+  // descriptions
+  STRAWBERRY_DESCRIPTION: "Strawberries, soy milk, tapioca balls.",
+  BANANA_DESCRIPTION: "Bananas, soy milk, tapioca balls.",
+  MANGO_DESCRIPTION: "Mango, with soy milk, tapioca balls.",
+  TARO_MATCHA_DESCRIPTION: "Taro, matcha, soy milk, tapioca balls.",
+  TARO_DESCRIPTION: "Taro, soy milk, tapioca balls.",
+  MANGO_GRAPEFRUIT_DESCRIPTION: "Mango, grapefruit, soy milk, tapioca balls.",
+  YAKULT_PEACH_DESCRIPTION: "Yakult, peach chunks, tapioca balls.",
+  YAKULT_LITCHI_DESCRIPTION: "Yakult, litchi, tapioca balls.",
+  YAKULT_GRAPEFRUIT_DESCRIPTION: "Yakult, grapefruit chunks, tapioca balls.",
+  YAKULT_PASSION_FRUIT_DESCRIPTION: "Yakult, passion fruit, tapioca balls.",
+  SOY_MILK_DESCRIPTION: "Soy milk, tapioca balls.",
+  JASMINE_LATTE_DESCRIPTION: "Jasmine, soy milk, tapioca balls.",
+  BLACK_TEA_LATTE_DESCRIPTION: "Black tea, soy milk, tapioca balls.",
+  MATCHA_LATTE_DESCRIPTION: "Matcha, soy milk, tapioca balls.",
+  BLACK_TEA_WITH_CREAM_DESCRIPTION:
+    "Black tea, soy milk, soy cream, tapioca balls.",
+  JASMINE_WITH_CREAM_DESCRIPTION:
+    "Jasmine tea, soy milk, soy cream, tapioca balls.",
+  OOLONG_WITH_CREAM_DESCRIPTION:
+    "Oolong tea, soy milk, soy cream, tapioca balls.",
+  sugar50: "50% sugar",
+  sugar0: "sugar0",
+  sugar30: "sugar30",
+  sugar70: "sugar70",
+  hot45: "hot45",
+  hot60: "hot60",
+  noIce: "without ice",
+  lessIce: "lessIce",
+  regularIce: "regularIce",
 };

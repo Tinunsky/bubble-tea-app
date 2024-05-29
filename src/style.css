@@ -61,3 +61,9 @@ body input {
   border-bottom: 1px solid #2223; 
   margin-block: 10px;
 }
+
+.short-separation-line {
+  border-bottom: 1px solid #2223; 
+  margin-block: 10px;
+  margin-left: 90px;
+}

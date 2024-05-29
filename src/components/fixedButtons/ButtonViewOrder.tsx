@@ -9,7 +9,7 @@ import { BubbleTeaContext } from "../../contexts/BubbleTeaContext";
 
 export function ButtonViewOrder() {
   const navigate = useNavigate();
-  const { totalCartPrice } = useContext(BubbleTeaContext);
+  const { totalProductsCost } = useContext(BubbleTeaContext);
 
   const clickedAddToCart = () => {
     navigate(paths.orderDetails);
@@ -19,7 +19,7 @@ export function ButtonViewOrder() {
     <div style={fixedButtonStyle}>
       <Button
         text={"View order"}
-        additionalText={formatPrice(totalCartPrice)}
+        additionalText={formatPrice(totalProductsCost)}
         inverted
         onClick={clickedAddToCart}
       />

@@ -7,9 +7,11 @@ import languageIcon from "../assets/language_icon.svg";
 import instagramIcon from "../assets/instagram_logo.svg";
 import orderIcon from "../assets/order_icon.svg";
 import { MenuFooter } from "./MenuFooter";
-
 import { Text } from "../components/Text";
 import { MenuHeader } from "./MenuHeader";
+import { paths } from "../utils/Router";
+import { useNavigate } from "react-router-dom";
+
 
 const containerWidth = 550;
 const menuWidth = Math.round((containerWidth * 2) / 3);
@@ -19,12 +21,19 @@ export function MenuWrapper({ children }) {
     useContext(BubbleTeaContext);
   const { userNameUpperCase, isLogged, logOut, toggleChangeLanguage } =
     useContext(UserContext);
+  const navigate = useNavigate();
+
 
   const openLoginPopup = () => {
     setIsLoginPopupOpen(true);
     setIsSignupPopupOpen(false);
     setShowMenu(false);
   };
+
+  const handleRedirect = (page) => {
+    navigate(page)
+    setShowMenu(false);
+  }
 
   const menuWrapperStyle = {
     width: `${menuWidth + containerWidth}px`,
@@ -89,12 +98,12 @@ export function MenuWrapper({ children }) {
               <ItemMenu
                 itemName={<Text id={"MY_ORDERS"} />}
                 itemImage={orderIcon}
-                onClick={() => window.alert("Redirect")}
+                onClick={() => handleRedirect(paths.myOrders)}
               ></ItemMenu>
               <ItemMenu
                 itemName={"Soja Lovers"}
                 itemImage={presentIcon}
-                onClick={() => window.alert("Redirect")}
+                onClick={() => handleRedirect(paths.sojaLovers)}
               ></ItemMenu>
               <ItemMenu
                 itemName={<Text id={"LANGUAGE"} />}

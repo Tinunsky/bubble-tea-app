@@ -3,6 +3,7 @@ import { UserProvider } from "./contexts/UserContext";
 import { BubbleTeaProvider } from "./contexts/BubbleTeaContext";
 import { MenuWrapper } from "./components/MenuWrapper";
 import { ScrollToTop } from "./utils/ScrollToTop";
+import { BrowserRouter } from "react-router-dom";
 
 const containerStyle = {
   margin: "auto",
@@ -15,9 +16,11 @@ export function App() {
     <div style={containerStyle} className={`w-[550px] lg:w-[916px]`}>
       <UserProvider>
         <BubbleTeaProvider>
+        <BrowserRouter>
           <MenuWrapper>
             <Router />
           </MenuWrapper>
+          </BrowserRouter>
         </BubbleTeaProvider>
       </UserProvider>
     </div>

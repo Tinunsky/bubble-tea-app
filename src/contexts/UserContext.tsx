@@ -32,11 +32,11 @@ export const UserContext = createContext<UserContextType>({
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const storedDisplayUserName = localStorage.getItem("userName") ? true : false
   const [isLogged, setIsLogged] = useState(storedDisplayUserName);
-  const [userId, setUserId] = useState(localStorage.getItem("userId"));
   const [userName, setUserName] = useState(localStorage.getItem("userName"));
   const userNameUpperCase = userName?.split(" ")[0].toUpperCase();
   const initialLanguage = localStorage.getItem("language") || EN_LANG;
   const [language, setLanguage] = useState(initialLanguage );
+  
 
   useEffect(() => {
       localStorage.setItem("language", initialLanguage);

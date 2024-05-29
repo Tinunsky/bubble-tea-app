@@ -9,6 +9,7 @@ import { OrderNow } from "../pages/OrderNow";
 import { AddProduct } from "../pages/AddProduct";
 import { OrderDetails } from "../pages/OrderDetails";
 import { ScrollToTop } from "./ScrollToTop";
+import { MyOrders } from "../pages/MyOrders";
 export const paths = {
   home: "/",
   unlogged: "/unlogged",
@@ -16,13 +17,14 @@ export const paths = {
   orderNow: "/order-now",
   product: "/product-to-order/:id",
   orderDetails: "/order-details",
+  myOrders: "/my-orders",
 };
 
 export function Router() {
   const { isLogged } = useContext(UserContext);
 
   return (
-    <BrowserRouter>
+    <>
       <ScrollToTop />
       <Routes>
         <Route element={<ProtectedRoute isActive={isLogged} />}>
@@ -30,10 +32,11 @@ export function Router() {
         </Route>
         <Route path={paths.unlogged} element={<Unlogged />} />
         <Route path={paths.sojaLovers} element={<SojaLovers />} />
+        <Route path={paths.myOrders} element={<MyOrders />} />
         <Route path={paths.orderNow} element={<OrderNow />} />
         <Route path={paths.product} element={<AddProduct />} />
         <Route path={paths.orderDetails} element={<OrderDetails />} />
       </Routes>
-    </BrowserRouter>
+    </>
   );
 }
