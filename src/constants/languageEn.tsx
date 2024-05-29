@@ -55,8 +55,9 @@ export const EN_TRANSLATION = {
   RECENT: "Recent",
   NO_ORDER_HISTORY: "No order history",
   REPEAT: "Repeat",
-
-
+  SOJA: "SOJA",
+  LOVERS: "LOVERS",
+  ORDER_10_BUBBLE_TEAS: "Order 10 Bubble Teas and get the 11th for free",
 
   // descriptions
   STRAWBERRY_DESCRIPTION: "Strawberries, soy milk, tapioca balls.",

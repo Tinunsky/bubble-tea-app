@@ -1,7 +1,7 @@
 import { doc, getDoc } from "firebase/firestore";
 import { firebaseDB, firebaseAuth } from "../firebase";
 
-export function getOrdersByUserFromFarebase() {
+export function getOrdersByUserFromFirebase() {
   return async () => {
     try {
       const docRef = doc(firebaseDB, "store", "orders");

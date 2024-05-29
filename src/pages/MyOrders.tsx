@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import closeIcon from "../assets/close_icon_black.svg";
-import { getOrdersByUserFromFarebase } from "../utils/getOrdersByUserFromFarebase";
+import { getOrdersByUserFromFirebase } from "../utils/getOrdersByUserFromFirebase";
 import { useNavigate } from "react-router-dom";
 import { paths } from "../utils/Router";
 import storeIcon from "../assets/store_icon.svg";
@@ -21,9 +21,10 @@ export const containerStyle = {
 
 export function MyOrders() {
   const [filteredOrdersByUser, setFilteredOrdersByUser] = useState([]);
-  const getOrdersByUser = getOrdersByUserFromFarebase();
+  const getOrdersByUser = getOrdersByUserFromFirebase();
   const navigate = useNavigate();
-  const { getProductById, productsCart, setProductsCart } = useContext(BubbleTeaContext);
+  const { getProductById, productsCart, setProductsCart } =
+    useContext(BubbleTeaContext);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -34,8 +35,8 @@ export function MyOrders() {
   }, []);
 
   const repeatOrder = (order) => {
-    setProductsCart(order.myOrder)
-    navigate(paths.orderDetails)
+    setProductsCart(order.myOrder);
+    navigate(paths.orderDetails);
   };
 
   // if (!filteredOrdersByUser.length && !products.length) return <>Loading...</>;
@@ -77,6 +78,7 @@ export function MyOrders() {
 
         {filteredOrdersByUser && (
           <div>
+            prueba
             <div
               style={{ fontWeight: "bold", fontSize: "1.2em", padding: "35px" }}
             >

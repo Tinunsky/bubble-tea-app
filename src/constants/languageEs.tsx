@@ -57,6 +57,9 @@ export const ES_TRANSLATION = {
   RECENT: "Recientes",
   NO_ORDER_HISTORY: "No hay pedidos",
   REPEAT: "Repetir",
+  SOJA: "SOJA",
+  LOVERS: "LOVERS",
+  ORDER_10_BUBBLE_TEAS: "Pide 10 Bubble Teas y te invitamos al número 11",
 
 
 

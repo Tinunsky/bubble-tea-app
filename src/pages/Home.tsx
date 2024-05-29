@@ -16,11 +16,9 @@ export function Home() {
   const { isAddedToCart, clearCart } = useContext(BubbleTeaContext);
   const navigate = useNavigate();
 
-
   const handleClick = () => {
-    isAddedToCart ? clearCart() : navigate(paths.myOrders)
-
-  }
+    isAddedToCart ? clearCart() : navigate(paths.myOrders);
+  };
 
   return (
     <>
@@ -54,7 +52,14 @@ export function Home() {
                 alt="icon"
                 style={{ maxWidth: "15px", maxHeight: "15px" }}
               />
-              <div style={{ marginLeft: "20px", fontSize: "1.3em" }}>
+              <div
+                onClick={() => navigate(paths.sojaLovers)}
+                style={{
+                  marginLeft: "20px",
+                  fontSize: "1.3em",
+                  cursor: "pointer",
+                }}
+              >
                 {"Soja Lover"}
               </div>
               <div style={{ marginLeft: "auto" }}>
@@ -69,7 +74,13 @@ export function Home() {
         </div>
 
         {/* Repeating this button element in Unlogged */}
-        <div style={{ padding: "32px", backgroundColor: 'white', cursor: "pointer" }}>
+        <div
+          style={{
+            padding: "32px",
+            backgroundColor: "white",
+            cursor: "pointer",
+          }}
+        >
           {isAddedToCart ? <ButtonMyOrder /> : <ButtonOrderNow />}
           <div
             className="flex items-center justify-center mt-5"
@@ -81,7 +92,11 @@ export function Home() {
               alt={isAddedToCart ? "delete icon" : "repeat icon"}
             />
             <div style={{ paddingTop: "2px" }}>
-              {isAddedToCart ? <Text id={"DELETE_ORDER"} /> : <Text id={"REPEAT_AN_ORDER"} />}
+              {isAddedToCart ? (
+                <Text id={"DELETE_ORDER"} />
+              ) : (
+                <Text id={"REPEAT_AN_ORDER"} />
+              )}
             </div>
           </div>
         </div>
