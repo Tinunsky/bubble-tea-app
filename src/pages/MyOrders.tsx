@@ -23,7 +23,7 @@ export function MyOrders() {
   const [filteredOrdersByUser, setFilteredOrdersByUser] = useState([]);
   const getOrdersByUser = getOrdersByUserFromFarebase();
   const navigate = useNavigate();
-  const { getProductById, products } = useContext(BubbleTeaContext);
+  const { getProductById, productsCart, setProductsCart } = useContext(BubbleTeaContext);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -32,6 +32,11 @@ export function MyOrders() {
     };
     fetchOrders();
   }, []);
+
+  const repeatOrder = (order) => {
+    setProductsCart(order.myOrder)
+    navigate(paths.orderDetails)
+  };
 
   // if (!filteredOrdersByUser.length && !products.length) return <>Loading...</>;
 
@@ -158,6 +163,7 @@ export function MyOrders() {
                       </div>
                     </div>
                     <div
+                      onClick={() => repeatOrder(order)}
                       style={{
                         width: "70px",
                         height: "30px",
@@ -168,6 +174,7 @@ export function MyOrders() {
                         justifyContent: "center",
                         alignItems: "center",
                         display: "flex",
+                        cursor: "pointer",
                       }}
                     >
                       <Text id={"REPEAT"} />
