@@ -13,6 +13,7 @@ import { updateFirebaseDoc } from "../utils/updateFirebaseDoc";
 import { firebaseAuth } from "./../firebase";
 import { UserContext } from "../contexts/UserContext";
 import { Timestamp } from "firebase/firestore";
+import { AttributesList } from "../components/AttributesList";
 
 export function OrderDetails() {
   const navigate = useNavigate();
@@ -117,8 +118,7 @@ export function OrderDetails() {
           {/* cart item */}
 
           {productsCart.map((cartItem, index) => {
-            const itemProduct = getProductById(cartItem.id)
-            ;
+            const itemProduct = getProductById(cartItem.id);
             const totalProductCost = itemProduct.price * cartItem.productAmount;
 
             {
@@ -160,19 +160,9 @@ export function OrderDetails() {
                       >
                         <Text id={itemProduct.description} />
                       </div>
-                      {cartItem.attributes.map((attribute, key) => (
-                        <div key={key} style={{display: "flex"}}>
-                          <img
-                            src={arrowOptions}
-                            alt="extra options"
-                            style={{
-                              height: "19px",
-                              backgroundColor: "#f1efef",
-                            }}
-                          />
-                          <Text id={attribute} />
-                        </div>
-                      ))}
+                      <AttributesList
+                        attributes={cartItem.attributes}
+                      ></AttributesList>
                       <div className="mt-5">
                         <img
                           src={deleteIcon}

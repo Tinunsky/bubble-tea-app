@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import closeIcon from "../assets/close_icon_black.svg";
-import arrowOptions from "../assets/arrow_options.svg";
 import { getOrdersByUserFromFarebase } from "../utils/getOrdersByUserFromFarebase";
 import { useNavigate } from "react-router-dom";
 import { paths } from "../utils/Router";
@@ -8,6 +7,7 @@ import storeIcon from "../assets/store_icon.svg";
 import { formatPrice } from "../utils/formatPrice";
 import { Text } from "../components/Text";
 import { BubbleTeaContext } from "../contexts/BubbleTeaContext";
+import { AttributesList } from "../components/AttributesList";
 
 export const containerStyle = {
   background: "white",
@@ -142,26 +142,9 @@ export function MyOrders() {
                                   
                                 }}
                               /> */}
-                                <div>
-                                  {itemFromOrder.attributes.map(
-                                    (attribute, key) => (
-                                      <div
-                                        key={key}
-                                        style={{ display: "flex" }}
-                                      >
-                                        <img
-                                          src={arrowOptions}
-                                          alt="extra options"
-                                          style={{
-                                            height: "19px",
-                                            backgroundColor: "#f1efef",
-                                          }}
-                                        />
-                                        <Text id={attribute} />
-                                      </div>
-                                    )
-                                  )}
-                                </div>
+                                <AttributesList
+                                  attributes={itemFromOrder.attributes}
+                                ></AttributesList>
                               </div>
                             </div>
                           </div>
