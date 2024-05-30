@@ -69,7 +69,7 @@ export function Login({ onClose, openSignUp, singInWithGoogle }) {
   };
 
   return (
-    <div style={containerStyle}>
+    <div style={containerStyle} className="fade-in">
       <div
         style={{
           fontSize: "2em",
@@ -105,7 +105,7 @@ export function Login({ onClose, openSignUp, singInWithGoogle }) {
         </h3>
         <input
           type="text"
-          placeholder="Your email account"
+          placeholder={Text({ id: "YOUR_EMAIL_ACCOUNT" })}
           value={emailLogIn}
           onChange={(e) => setEmailLogIn(e.target.value)}
         />
@@ -118,9 +118,7 @@ export function Login({ onClose, openSignUp, singInWithGoogle }) {
           value={passwordLogIn}
           onChange={(e) => setPasswordLogIn(e.target.value)}
         />
-        {/* {errorLogin && <div style={{ color: "#ff2222" }}>{errorLogin}</div>} */}
         <Button text={<Text id={"LOG_IN"} />} onClick={signInWithCredentials}>
-          {/* <div> {loadingLogin ? "Logging in..." : "Log in"}</div> */}
         </Button>
         <Button
           text={<Text id={"LOGIN_WITH_GOOGLE"} />}

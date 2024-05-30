@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import arrowLeft from "../assets/arrow_left.svg";
 import deleteIcon from "../assets/delete_icon.svg";
 import storeIcon from "../assets/store_icon.svg";
-import arrowOptions from "../assets/arrow_options.svg";
 import { paths } from "../utils/Router";
 import { useContext } from "react";
 import { BubbleTeaContext } from "../contexts/BubbleTeaContext";
@@ -14,6 +13,7 @@ import { firebaseAuth } from "./../firebase";
 import { UserContext } from "../contexts/UserContext";
 import { Timestamp } from "firebase/firestore";
 import { AttributesList } from "../components/AttributesList";
+import { Loading } from "../components/Loading";
 
 export function OrderDetails() {
   const navigate = useNavigate();
@@ -64,9 +64,9 @@ export function OrderDetails() {
   };
 
   const textBold = { fontWeight: "bold", letterSpacing: "1px" };
-
   console.log("products", products);
-  if (products.length < 1) return <>Loading...</>;
+
+  if (products.length < 1) return <Loading />;
   return (
     <>
       <div style={{ padding: "20px 25px" }}>
@@ -128,12 +128,9 @@ export function OrderDetails() {
           )}
         </div>
         <div>
-          {/* cart item */}
-
           {productsCart.map((cartItem, index) => {
             const itemProduct = getProductById(cartItem.id);
             const totalProductCost = itemProduct.price * cartItem.productAmount;
-
             {
               return (
                 <div

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { CSSProperties, useContext, useEffect, useState } from "react";
 import closeIcon from "../assets/close_icon_black.svg";
 import { getOrdersByUserFromFirebase } from "../utils/getOrdersByUserFromFirebase";
 import { useNavigate } from "react-router-dom";
@@ -10,12 +10,12 @@ import { BubbleTeaContext } from "../contexts/BubbleTeaContext";
 import { AttributesList } from "../components/AttributesList";
 import { drinkImages } from "../constants/products";
 import bubbleTeaHome from "../assets/home_bubbletea.jpg";
+import { Loading } from "../components/Loading";
 
-export const containerStyle = {
+export const containerStyle: CSSProperties = {
   background: "white",
   backgroundSize: "cover",
   backgroundPosition: "center top",
-  // height: "100dvh",
   display: "flex",
   flexDirection: "column",
 };
@@ -24,8 +24,7 @@ export function MyOrders() {
   const [filteredOrdersByUser, setFilteredOrdersByUser] = useState([]);
   const getOrdersByUser = getOrdersByUserFromFirebase();
   const navigate = useNavigate();
-  const { getProductById, productsCart, setProductsCart } =
-    useContext(BubbleTeaContext);
+  const { getProductById, setProductsCart } = useContext(BubbleTeaContext);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -41,8 +40,6 @@ export function MyOrders() {
   };
 
   console.log(filteredOrdersByUser);
-  // if (!filteredOrdersByUser.length && !products.length) return <>Loading...</>;
-
   const isRecent = (timestamp) => {
     const timeDifference = 1000 * 60 * 10;
     const now = new Date();
@@ -54,6 +51,7 @@ export function MyOrders() {
     return updatedAt.getTime() + timeDifference > now.getTime();
   };
 
+  if (!filteredOrdersByUser.length) return <Loading />;
   return (
     <>
       <div style={containerStyle}>

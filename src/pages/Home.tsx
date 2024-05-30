@@ -28,7 +28,6 @@ export function Home() {
             <Text id={"HELLO"} />, <br /> {userNameUpperCase}
           </>
         }
-        // Repeat this title in Unlogged
         subtitle={
           <p>
             <Text id={"MADE_WITH_HOMEMADE_PURE_SOY_MILK"} />.
@@ -37,7 +36,6 @@ export function Home() {
           </p>
         }
       >
-        {/* part of the accordion to removel as a new component Panel/Section */}
         <div
           style={{
             position: "relative",
@@ -72,8 +70,6 @@ export function Home() {
             </div>
           </div>
         </div>
-
-        {/* Repeating this button element in Unlogged */}
         <div
           style={{
             padding: "32px",

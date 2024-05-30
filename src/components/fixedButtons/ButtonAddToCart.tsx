@@ -12,12 +12,14 @@ export function ButtonAddToCart({
 }) {
   return (
     <div style={fixedButtonStyle}>
-      <Button
-        text={"Add to cart"}
-        additionalText={formatPrice(costPerProduct)}
-        inverted
-        onClick={onAddToCartClick}
-      />
+      <div className="appear-bottom">
+        <Button
+          text={"Add to cart"}
+          additionalText={formatPrice(costPerProduct)}
+          inverted
+          onClick={onAddToCartClick}
+        />
+      </div>
     </div>
   );
 }

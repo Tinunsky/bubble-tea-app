@@ -46,10 +46,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     if (isLogged === false) {
       setIsLogged(true);
       setUserName(name);
-      // setLanguage(language);
       localStorage.setItem("userName", name);
       localStorage.setItem("userId", id);
-      // localStorage.setItem("language", language);
     }
   }
 

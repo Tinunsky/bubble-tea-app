@@ -11,7 +11,7 @@ import {
 export function HomeLayout({ children, title, subtitle }) {
   return (
     <>
-      <div style={containerStyle}>
+      <div style={containerStyle} className="fade-in">
         <div style={bodyContainerStyle}>
           <div className="md:w-1/2 pt-5">
             <MenuBar />

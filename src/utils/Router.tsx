@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { Home } from "../pages/Home";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { useContext } from "react";
@@ -10,6 +10,7 @@ import { AddProduct } from "../pages/AddProduct";
 import { OrderDetails } from "../pages/OrderDetails";
 import { ScrollToTop } from "./ScrollToTop";
 import { MyOrders } from "../pages/MyOrders";
+
 export const paths = {
   home: "/",
   unlogged: "/unlogged",

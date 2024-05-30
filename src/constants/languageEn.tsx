@@ -28,6 +28,7 @@ export const EN_TRANSLATION = {
   NICE_TO: "NICE TO",
   MEET_YOU: "MEET YOU",
   MAKE_THE_PASSWORD: "Make the password",
+  NEW_PASSWORD: "New password",
   FULL_NAME: "Full name",
   YOUR_FULL_NAME: "Your full name",
   SIGN_UP: "Sign up",
@@ -59,7 +60,6 @@ export const EN_TRANSLATION = {
   LOVERS: "LOVERS",
   ORDER_10_BUBBLE_TEAS: "Order 10 Bubble Teas and get the 11th for free",
   NO_PRODUCTS_IN_THE_CART: "You dont have any product in the cart",
-
   // descriptions
   STRAWBERRY_DESCRIPTION: "Strawberries, soy milk, tapioca balls.",
   BANANA_DESCRIPTION: "Bananas, soy milk, tapioca balls.",

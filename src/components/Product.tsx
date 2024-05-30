@@ -7,6 +7,7 @@ import { Text } from "./Text";
 import { drinkImages } from "../constants/products.tsx";
 import { flavourImages } from "../constants/products.tsx";
 
+
 export function Product({ product }) {
   const navigate = useNavigate();
   function handleClick() {
@@ -28,16 +29,12 @@ export function Product({ product }) {
       }}
     >
       <div
-        // onClick={() => navigate(paths.product)}
         style={{
           backgroundColor: "#d892217a",
           borderTopLeftRadius: "20px",
           borderTopRightRadius: "20px",
           position: "relative",
           overflow: "hidden",
-
-          // display: "flex",
-          // justifyContent: "center",
         }}
       >
         <img
@@ -48,7 +45,6 @@ export function Product({ product }) {
             objectFit: "cover",
             width: "100%",
             opacity: "0.9",
-            // objectPosition: "center bottom",
           }}
         />
         <img

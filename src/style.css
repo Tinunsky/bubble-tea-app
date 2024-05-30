@@ -58,12 +58,58 @@ body input {
 }
 
 .separation-line {
-  border-bottom: 1px solid #2223; 
+  border-bottom: 1px solid #2223;
   margin-block: 10px;
 }
 
 .short-separation-line {
-  border-bottom: 1px solid #2223; 
+  border-bottom: 1px solid #2223;
   margin-block: 10px;
   margin-left: 90px;
 }
+
+.appear-bottom {
+  animation: appear-bottom-anim 0.5s ease;
+  position: relative;
+}
+
+@keyframes appear-bottom-anim {
+  0% {
+    bottom: -30px;
+    opacity: 0;
+  }
+  100% {
+    bottom: 0px;
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fade-in-anim 0.5s ease;
+  position: relative;
+}
+
+@keyframes fade-in-anim {
+  0% {
+    top: -20px;
+  }
+  100% {
+    top: 0px;
+  }
+}
+
+/* .appear-bottom {
+  animation: appear-bottom-anim 0.5s ease;
+  position: relative;
+}
+
+@keyframes appear-bottom-anim {
+  0% {
+    margin-bottom: -20px;
+    margin-top: 20px;
+  }
+  100% {
+    margin-bottom: 20px;
+    margin-top: -20px;
+  }
+} */

@@ -14,8 +14,6 @@ import { paths } from "../utils/Router";
 import { useNavigate } from "react-router-dom";
 import { ES_LANG } from "../constants/languageEs";
 
-const containerWidth = 550;
-// const menuWidth = Math.round((containerWidth * 2) / 3);
 const menuWidth = 306;
 
 export function MenuWrapper({ children }) {
@@ -37,8 +35,14 @@ export function MenuWrapper({ children }) {
   };
 
   const handleRedirect = (page) => {
-    navigate(page);
-    setShowMenu(false);
+    if (isLogged) {
+      navigate(page);
+      setShowMenu(false);
+    } else {
+      setIsLoginPopupOpen(true);
+      setIsSignupPopupOpen(false);
+      setShowMenu(false);
+    }
   };
 
   const menuWrapperStyle = {
@@ -75,7 +79,6 @@ export function MenuWrapper({ children }) {
               flexDirection: "column",
             }}
           >
-            {/* See how to get access to toggleLoginPopup from Unlogged component */}
             <MenuHeader
               buttonOnClick={isLogged ? () => {} : openLoginPopup}
               text={
@@ -113,7 +116,6 @@ export function MenuWrapper({ children }) {
               ></ItemMenu>
               <ItemMenu
                 itemName={<Text id={"LANGUAGE"} />}
-                // not working english flag
                 itemImage={language === ES_LANG ? spanishFlag : englishFlag}
                 onClick={toggleChangeLanguage}
               ></ItemMenu>

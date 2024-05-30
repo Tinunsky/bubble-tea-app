@@ -8,7 +8,7 @@ import { paths } from "../utils/Router";
 import { ButtonAddToCart } from "../components/fixedButtons/ButtonAddToCart";
 import { HotAttribute } from "../components/HotAttribute";
 import { ColdAttribute } from "../components/ColdAttribute";
-import { useContext, useState } from "react";
+import { CSSProperties, useContext, useState } from "react";
 import { formatPrice } from "../utils/formatPrice";
 import {
   Attribute,
@@ -19,8 +19,9 @@ import { ATTRIBUTES } from "../constants/ATTRIBUTES";
 import { flavourImages } from "../constants/products.tsx";
 import { drinkImages } from "../constants/products.tsx";
 import { Text } from "../components/Text";
+import { Loading } from "../components/Loading.tsx";
 
-export const containerStyle = {
+export const containerStyle: CSSProperties = {
   backgroundSize: "cover",
   backgroundPosition: "center top",
   display: "flex",
@@ -45,15 +46,10 @@ export function AddProduct() {
     useState(defaultTemperature);
 
   const totalCostPerProduct = productAmount * product?.price;
-
-  // console.log("selectedSweetness", selectedSweetness);
-  // console.log("selectedTemperature", selectedTemperature);
   console.log("productsCart", productsCart);
 
   const clickedAddToCart = () => {
     navigate(paths.orderNow);
-    // setIsAddedToCart(true);
-    // setTotalCartPrice((prev) => totalCostPerProduct + prev);
     const attributes: Attribute[] = [selectedSweetness, selectedTemperature];
     const newCartItem: CartItem = { id, productAmount, attributes };
     setProductsCart((s) => [...s, newCartItem]);
@@ -81,7 +77,7 @@ export function AddProduct() {
       setProductAmount(newAmount);
     }
   }
-  if (!product) return <>Loading...</>;
+  if (!product) return <Loading />;
   return (
     <div style={containerStyle}>
       <div
@@ -155,7 +151,9 @@ export function AddProduct() {
           <div className="separation-line"></div>
         </div>
 
-        <div style={additionalOptionsText}><Text id={"COLD_OR_HOT"} /></div>
+        <div style={additionalOptionsText}>
+          <Text id={"COLD_OR_HOT"} />
+        </div>
         <div>
           {product.attributes.cold && (
             <>
@@ -197,7 +195,9 @@ export function AddProduct() {
           )}
         </div>
         <div style={{ margin: "10px" }}></div>
-        <div style={additionalOptionsText}><Text id={"HOW_SWEET"} /></div>
+        <div style={additionalOptionsText}>
+          <Text id={"HOW_SWEET"} />
+        </div>
         <div>
           <ButtonProductAttribute
             name={<Text id={"sugar0"} />}
@@ -240,7 +240,9 @@ export function AddProduct() {
               alignItems: "center",
             }}
           >
-            <div style={textBold}><Text id={"TOTAL"} /></div>
+            <div style={textBold}>
+              <Text id={"TOTAL"} />
+            </div>
             <div className="product-price">
               {formatPrice(totalCostPerProduct)}
             </div>

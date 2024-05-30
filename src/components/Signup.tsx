@@ -2,13 +2,13 @@ import { Button } from "./Button";
 import closeIcon from "../assets/close_icon_black.svg";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { firebaseAuth } from "../firebase";
-import { useContext, useState } from "react";
+import { CSSProperties, useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import { Text } from "../components/Text";
 import { paths } from "../utils/Router";
 
-export const containerStyle = {
+export const containerStyle: CSSProperties = {
   background: "white",
   backgroundSize: "cover",
   backgroundPosition: "center top",
@@ -71,8 +71,12 @@ export function Signup({ onClose }) {
           }}
         >
           <div>
-            <p><Text id={"NICE_TO"} /></p>
-            <p><Text id={"MEET_YOU"} />.</p>
+            <p>
+              <Text id={"NICE_TO"} />
+            </p>
+            <p>
+              <Text id={"MEET_YOU"} />.
+            </p>
           </div>
           <div>
             <img
@@ -91,30 +95,34 @@ export function Signup({ onClose }) {
           <h3>Email</h3>
           <input
             type="text"
-            placeholder="Your email account"
+            placeholder={Text({ id: "YOUR_EMAIL_ACCOUNT" })}
             value={emailSignUp}
             onChange={(e) => setEmailSignUp(e.target.value)}
           />
-          <h3><Text id={"MAKE_THE_PASSWORD"} /></h3>
+          <h3>
+            <Text id={"MAKE_THE_PASSWORD"} />
+          </h3>
           <input
             type="password"
-            placeholder="New password"
+            placeholder={Text({ id: "NEW_PASSWORD" })}
             value={passwordSignUp}
             onChange={(e) => setPasswordSignUp(e.target.value)}
           />
-          {/* {errorLogin && <div style={{ color: "#ff2222" }}>{errorLogin}</div>} */}
-          <h3><Text id={"FULL_NAME"} /></h3>
+          <h3>
+            <Text id={"FULL_NAME"} />
+          </h3>
           <input
             type="text"
-            placeholder="Your full name"
+            placeholder={Text({ id: "YOUR_FULL_NAME" })}
             value={fullNameSignUp}
             onChange={(e) => setFullNameSignUp(e.target.value)}
           />
         </div>
         <div style={{ textAlign: "center" }}>
-          <Button text={<Text id={"SIGN_UP"} />} onClick={createUserWithCredentials}>
-            {/* <div> {loadingLogin ? "Logging in..." : "Log in"}</div> */}
-          </Button>
+          <Button
+            text={<Text id={"SIGN_UP"} />}
+            onClick={createUserWithCredentials}
+          ></Button>
         </div>
       </div>
     </>

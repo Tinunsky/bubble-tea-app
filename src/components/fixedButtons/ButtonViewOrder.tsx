@@ -17,12 +17,14 @@ export function ButtonViewOrder() {
 
   return (
     <div style={fixedButtonStyle}>
-      <Button
-        text={<Text id={"VIEW_ORDER"}/>}
-        additionalText={formatPrice(totalProductsCost)}
-        inverted
-        onClick={clickedAddToCart}
-      />
+      <div className="appear-bottom">
+        <Button
+          text={<Text id={"VIEW_ORDER"} />}
+          additionalText={formatPrice(totalProductsCost)}
+          inverted
+          onClick={clickedAddToCart}
+        />
+      </div>
     </div>
   );
 }

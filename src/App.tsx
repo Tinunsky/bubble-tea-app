@@ -2,10 +2,11 @@ import { Router } from "./utils/Router";
 import { UserProvider } from "./contexts/UserContext";
 import { BubbleTeaProvider } from "./contexts/BubbleTeaContext";
 import { MenuWrapper } from "./components/MenuWrapper";
-import { ScrollToTop } from "./utils/ScrollToTop";
 import { BrowserRouter } from "react-router-dom";
+import { CSSProperties } from "react";
 
-const containerStyle = {
+
+const containerStyle: CSSProperties= {
   margin: "auto",
   boxShadow: "rgb(46 7 8) 0px 0px 60px, rgb(46 7 8) 0px 0px 19px",
   overflowX: "hidden",
