@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import closeIcon from "../assets/close_icon_black.svg";
 import { paths } from "../utils/Router";
-import { CSSProperties, useEffect, useState } from "react";
+import { CSSProperties, useContext, useEffect, useState } from "react";
 import { Text } from "../components/Text";
 import bubbleTeaHome from "../assets/home_bubbletea.jpg";
 import logoImage from "../assets/logo_face.jpg";
 import { getOrdersByUserFromFirebase } from "../utils/getOrdersByUserFromFirebase";
+import { BubbleTeaContext } from "../contexts/BubbleTeaContext";
 
 export const containerStyle: CSSProperties = {
   background: "white",
@@ -19,7 +20,8 @@ export const containerStyle: CSSProperties = {
 
 export function SojaLovers() {
   const navigate = useNavigate();
-  const [filteredOrdersByUser, setFilteredOrdersByUser] = useState([]);
+  // const [filteredOrdersByUser, setFilteredOrdersByUser] = useState([]);
+  const { setFilteredOrdersByUser, isNextFree, stamps } = useContext(BubbleTeaContext);
   const getOrdersByUser = getOrdersByUserFromFirebase();
 
   useEffect(() => {
@@ -30,32 +32,32 @@ export function SojaLovers() {
     fetchOrders();
   }, []);
 
-  const getTotalOrderedDrinksAmount = () => {
-    let totalAmount = 0;
-    filteredOrdersByUser.forEach((order) =>
-      order.myOrder.forEach(
-        (orderItem) => (totalAmount += orderItem.productAmount)
-      )
-    );
-    return totalAmount;
-  };
+  // const getTotalOrderedDrinksAmount = () => {
+  //   let totalAmount = 0;
+  //   filteredOrdersByUser.forEach((order) =>
+  //     order.myOrder.forEach(
+  //       (orderItem) => (totalAmount += orderItem.productAmount)
+  //     )
+  //   );
+  //   return totalAmount;
+  // };
 
-  const stamps = [];
-  const maxStamps = 10;
-  const totalOrderedDrinksAmount = getTotalOrderedDrinksAmount();
-  const remainingDrinksForReward = (totalOrderedDrinksAmount +1) % 11;
-  const stampedNumber = (totalOrderedDrinksAmount) % 11;
-  const emptyStamps = maxStamps - stampedNumber;
-  const isNextFree = remainingDrinksForReward  === 0;
+  // const stamps = [];
+  // const maxStamps = 10;
+  // const totalOrderedDrinksAmount = getTotalOrderedDrinksAmount();
+  // const remainingDrinksForReward = (totalOrderedDrinksAmount +1) % 11;
+  // const stampedNumber = (totalOrderedDrinksAmount) % 11;
+  // const emptyStamps = maxStamps - stampedNumber;
+  // const isNextFree = remainingDrinksForReward  === 0;
 
-  console.log("stampedNumber", stampedNumber)
-  for (let i = 0; i < stampedNumber; i++) {
-    console.log(i);
-    stamps.push(true);
-  }
-  for (let i = 0; i < emptyStamps; i++) {
-    stamps.push(false);
-  }
+  // console.log("stampedNumber", stampedNumber)
+  // for (let i = 0; i < stampedNumber; i++) {
+  //   console.log(i);
+  //   stamps.push(true);
+  // }
+  // for (let i = 0; i < emptyStamps; i++) {
+  //   stamps.push(false);
+  // }
 
   return (
     <>

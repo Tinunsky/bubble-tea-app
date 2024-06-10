@@ -27,6 +27,7 @@ export function OrderDetails() {
     setIsLoginPopupOpen,
     setIsSignupPopupOpen,
     setShowMenu,
+    remainingDrinksForReward,
   } = useContext(BubbleTeaContext);
   const { userName, isLogged } = useContext(UserContext);
 
@@ -42,10 +43,9 @@ export function OrderDetails() {
       totalOrderCost: totalProductsCost,
     };
     updateFirebaseDoc("orders", "orders", newOrder);
-
   };
 
-  const removeCartItem = (index) => {
+  const removeCartItem = (index: number) => {
     setProductsCart((prev) => {
       const newProductsCart = [...prev];
       newProductsCart.splice(index, 1);
@@ -65,7 +65,23 @@ export function OrderDetails() {
   };
 
   const textBold = { fontWeight: "bold", letterSpacing: "1px" };
-  console.log("products", products);
+
+  const calculateTotalDrinks = (): number => {
+    return productsCart.reduce((total, item) => total + item.productAmount, 0);
+  };
+
+  const hasReward = remainingDrinksForReward <= calculateTotalDrinks();
+
+  const calculateTotalCostWithReward = (): number => {
+    if (!hasReward) {
+      return totalProductsCost;
+    }
+    const mostExpensiveProduct = productsCart.reduce((max, item) => {
+      const product = getProductById(item.id);
+      return product.price > max ? product.price : max;
+    }, 0);
+    return totalProductsCost - mostExpensiveProduct;
+  };
 
   if (products.length < 1) return <Loading />;
   return (
@@ -185,19 +201,6 @@ export function OrderDetails() {
                           onClick={() => removeCartItem(index)}
                         />
                       </div>
-                      <div
-                        style={{
-                          padding: '5px 10px',
-                          marginBlock: '15px',
-                          backgroundColor: 'rgba(216, 146, 33, 0.48)',
-                          borderRadius: '10px',
-                          width: 'fit-content',
-                          fontWeight: 'bolder',
-                        }}
-                        onClick={() => window.alert("hola")}
-                      >
-                        Use reward
-                      </div>
                     </div>
                     <div style={textBold}>{formatPrice(totalProductCost)}</div>
                   </div>
@@ -218,10 +221,30 @@ export function OrderDetails() {
           }}
         >
           <div>
-            {" "}
             <Text id={"TOTAL"} />
           </div>
-          <div>{formatPrice(totalProductsCost)}</div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              textAlign: "end",
+            }}
+          >
+            <div>{formatPrice(calculateTotalCostWithReward())}</div>
+            {hasReward && (
+              <div
+                style={{
+                  padding: "5px 10px",
+                  marginBlock: "15px",
+                  backgroundColor: "rgba(216, 146, 33, 0.48)",
+                  borderRadius: "10px",
+                  width: "fit-content",
+                }}
+              >
+                1 free reward
+              </div>
+            )}
+          </div>
         </div>
         <div className="separation-line"></div>
       </div>

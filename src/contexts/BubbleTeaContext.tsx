@@ -13,6 +13,17 @@ export type CartItem = {
   attributes: Attribute[];
 };
 
+type Order = {
+  id: string;
+  userId: string;
+  myOrder: OrderItem[];
+}
+
+type OrderItem = {
+  productId: string;
+  productAmount: number;
+}
+
 const defaultBubbleTeaContext = {
   showMenu: false,
   setShowMenu: (() => {}) as SetState<boolean>,
@@ -36,6 +47,10 @@ const defaultBubbleTeaContext = {
   setIsSipIn: (() => {}) as SetState<boolean>,
   selectedCategory: "All",
   setSelectedCategory: (() => {}) as SetState<string>,
+  setFilteredOrdersByUser: (() => {}) as SetState<Order[]>,
+  isNextFree: false,
+  stamps: [],
+  remainingDrinksForReward: 0,
 
 };
 
@@ -53,6 +68,36 @@ export const BubbleTeaProvider = ({ children }: { children: ReactNode }) => {
   const defaultProducts: Product[] = [];
   const [products, setProducts] = useState(defaultProducts);
   const [selectedCategory, setSelectedCategory] = useState("All");
+
+
+ const [filteredOrdersByUser, setFilteredOrdersByUser] = useState([]);
+  const getTotalOrderedDrinksAmount = () => {
+    let totalAmount = 0;
+    filteredOrdersByUser.forEach((order) =>
+      order.myOrder.forEach(
+        (orderItem) => (totalAmount += orderItem.productAmount)
+      )
+    );
+    return totalAmount;
+  };
+
+  const stamps = [];
+  const maxStamps = 10;
+  const totalOrderedDrinksAmount = getTotalOrderedDrinksAmount();
+  const remainingDrinksForReward = (totalOrderedDrinksAmount +1) % 11;
+  const stampedNumber = (totalOrderedDrinksAmount) % 11;
+  const emptyStamps = maxStamps - stampedNumber;
+  const isNextFree = remainingDrinksForReward  === 0;
+
+  
+  console.log("stampedNumber", stampedNumber)
+  for (let i = 0; i < stampedNumber; i++) {
+    console.log(i);
+    stamps.push(true);
+  }
+  for (let i = 0; i < emptyStamps; i++) {
+    stamps.push(false);
+  }
 
   const fetchProducts = async () => {
     getFirebaseDoc("products").then((data) => {
@@ -119,6 +164,10 @@ export const BubbleTeaProvider = ({ children }: { children: ReactNode }) => {
         setIsSipIn,
         selectedCategory,
         setSelectedCategory,
+        setFilteredOrdersByUser,
+        isNextFree,
+        stamps,
+        remainingDrinksForReward,
       }}
     >
       {children}
