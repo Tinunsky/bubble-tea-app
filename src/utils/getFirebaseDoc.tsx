@@ -1,7 +1,7 @@
 import { doc, getDoc } from "firebase/firestore";
 import { firebaseDB } from "./../firebase";
 
-export const getFirebaseDoc = async (docId) => {
+export const getFirebaseDoc = async (docId: string) => {
   const docRef = doc(firebaseDB, "store", docId);
   const docSnap = await getDoc(docRef);
 

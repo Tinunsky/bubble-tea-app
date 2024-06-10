@@ -1,7 +1,7 @@
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { firebaseDB } from "./../firebase";
 
-export const updateFirebaseDoc = async (docId, arrayName, element) => {
+export const updateFirebaseDoc = async (docId: string, arrayName: string, element: string) => {
   const docRef = doc(firebaseDB, "store", docId);
 
   try {

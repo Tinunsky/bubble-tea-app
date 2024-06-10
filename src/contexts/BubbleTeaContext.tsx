@@ -30,6 +30,13 @@ const defaultBubbleTeaContext = {
   products: [],
   clearCart: () => {},
   getProductById: ((id) => {}) as (id: string) => Product,
+  isTakeAway: false,
+  setIsTakeAway: (() => {}) as SetState<boolean>,
+  isSipIn: false,
+  setIsSipIn: (() => {}) as SetState<boolean>,
+  selectedCategory: "All",
+  setSelectedCategory: (() => {}) as SetState<string>,
+
 };
 
 export const BubbleTeaContext = createContext(defaultBubbleTeaContext);
@@ -38,11 +45,14 @@ export const BubbleTeaProvider = ({ children }: { children: ReactNode }) => {
   const [showMenu, setShowMenu] = useState(false);
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
   const [isSignupPopupOpen, setIsSignupPopupOpen] = useState(false);
+  const [isTakeAway, setIsTakeAway] = useState(false);
+  const [isSipIn, setIsSipIn] = useState(false);
   const [productsCart, setProductsCart] = useState(
     JSON.parse(localStorage.getItem("cart")) || []
   );
   const defaultProducts: Product[] = [];
   const [products, setProducts] = useState(defaultProducts);
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   const fetchProducts = async () => {
     getFirebaseDoc("products").then((data) => {
@@ -103,6 +113,12 @@ export const BubbleTeaProvider = ({ children }: { children: ReactNode }) => {
         products,
         clearCart,
         getProductById,
+        isTakeAway,
+        setIsTakeAway,
+        isSipIn,
+        setIsSipIn,
+        selectedCategory,
+        setSelectedCategory,
       }}
     >
       {children}

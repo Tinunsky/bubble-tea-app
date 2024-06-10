@@ -1,7 +1,7 @@
 import { doc, setDoc } from "firebase/firestore";
 import { firebaseDB } from "./../firebase";
 
-export const setFirebaseDoc = async (docId, data) => {
+export const setFirebaseDoc = async (docId: string, data) => {
   const docRef = doc(firebaseDB, "store", docId);
 
   try {

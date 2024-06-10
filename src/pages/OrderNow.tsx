@@ -6,6 +6,7 @@ import { CSSProperties, useContext } from "react";
 import { BubbleTeaContext } from "../contexts/BubbleTeaContext";
 import { ButtonViewOrder } from "../components/fixedButtons/ButtonViewOrder";
 import { Loading } from "../components/Loading";
+import { FilterByCategoryPanel } from "../components/FilterByCategoryPanel";
 
 export const containerStyle: CSSProperties = {
   backgroundSize: "cover",
@@ -16,11 +17,19 @@ export const containerStyle: CSSProperties = {
 
 export function OrderNow() {
   const navigate = useNavigate();
-  const { isAddedToCart, productsCart, products } =
-    useContext(BubbleTeaContext);
+  const {
+    isAddedToCart,
+    productsCart,
+    products,
+    selectedCategory,
+  } = useContext(BubbleTeaContext);
   console.log("productsCart", productsCart);
 
-  if (!products) return <Loading />;
+  const filterProducts =
+    selectedCategory === "All"
+      ? products
+      : products.filter((product) => product.category === selectedCategory);
+
   return (
     <div style={containerStyle}>
       <div
@@ -43,7 +52,9 @@ export function OrderNow() {
           onClick={() => navigate(paths.home)}
         />
       </div>
-      {products?.map((product) => (
+      <FilterByCategoryPanel />
+      {!products.length && <Loading />}
+      {filterProducts?.map((product) => (
         <div key={product.id}>
           <Product product={product} />
         </div>
