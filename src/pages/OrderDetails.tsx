@@ -42,6 +42,7 @@ export function OrderDetails() {
       totalOrderCost: totalProductsCost,
     };
     updateFirebaseDoc("orders", "orders", newOrder);
+
   };
 
   const removeCartItem = (index) => {
@@ -183,6 +184,19 @@ export function OrderDetails() {
                           }}
                           onClick={() => removeCartItem(index)}
                         />
+                      </div>
+                      <div
+                        style={{
+                          padding: '5px 10px',
+                          marginBlock: '15px',
+                          backgroundColor: 'rgba(216, 146, 33, 0.48)',
+                          borderRadius: '10px',
+                          width: 'fit-content',
+                          fontWeight: 'bolder',
+                        }}
+                        onClick={() => window.alert("hola")}
+                      >
+                        Use reward
                       </div>
                     </div>
                     <div style={textBold}>{formatPrice(totalProductCost)}</div>

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import closeIcon from "../assets/close_icon_black.svg";
 import { paths } from "../utils/Router";
-import { CSSProperties, useContext, useEffect, useState } from "react";
+import { CSSProperties, useEffect, useState } from "react";
 import { Text } from "../components/Text";
 import bubbleTeaHome from "../assets/home_bubbletea.jpg";
 import logoImage from "../assets/logo_face.jpg";
@@ -43,16 +43,19 @@ export function SojaLovers() {
   const stamps = [];
   const maxStamps = 10;
   const totalOrderedDrinksAmount = getTotalOrderedDrinksAmount();
-  const emptyStamps = maxStamps - totalOrderedDrinksAmount;
+  const remainingDrinksForReward = (totalOrderedDrinksAmount +1) % 11;
+  const stampedNumber = (totalOrderedDrinksAmount) % 11;
+  const emptyStamps = maxStamps - stampedNumber;
+  const isNextFree = remainingDrinksForReward  === 0;
 
-  for (let i = 0; i < totalOrderedDrinksAmount; i++) {
+  console.log("stampedNumber", stampedNumber)
+  for (let i = 0; i < stampedNumber; i++) {
     console.log(i);
     stamps.push(true);
   }
   for (let i = 0; i < emptyStamps; i++) {
     stamps.push(false);
   }
-  console.log("totalOrderedDrinksAmount", totalOrderedDrinksAmount);
 
   return (
     <>
@@ -90,7 +93,6 @@ export function SojaLovers() {
         </div>
         <div
           style={{
-            // backgroundColor: "brown",
             borderRadius: "20px",
             height: "300px",
             overflow: "hidden",
@@ -99,7 +101,6 @@ export function SojaLovers() {
         >
           <div
             style={{
-              // backgroundColor: "brown",
               height: "100px",
               background: `url(${bubbleTeaHome})  0% 16% / 130%`,
             }}
@@ -124,6 +125,17 @@ export function SojaLovers() {
             ))}
           </div>
         </div>
+        {isNextFree && (
+          <div
+            style={{
+              margin: "auto",
+              fontWeight: "bold",
+              fontSize: "1.2em",
+            }}
+          >
+            <Text id="CONGRATULATIONS_YOUVE_EARNED_1_FREE" />
+          </div>
+        )}
       </div>
     </>
   );

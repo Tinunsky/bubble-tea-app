@@ -44,14 +44,13 @@ export function Home() {
           }}
         >
           <div style={{ cursor: "pointer", padding: "3px 0" }}>
-            <div className="flex items-center mx-5 p-3">
+            <div className="flex items-center mx-5 p-3"  onClick={() => navigate(paths.sojaLovers)}>
               <img
                 src={presentIcon}
                 alt="icon"
                 style={{ maxWidth: "15px", maxHeight: "15px" }}
               />
               <div
-                onClick={() => navigate(paths.sojaLovers)}
                 style={{
                   marginLeft: "20px",
                   fontSize: "1.3em",
@@ -79,7 +78,7 @@ export function Home() {
         >
           {isAddedToCart ? <ButtonMyOrder /> : <ButtonOrderNow />}
           <div
-            className="flex items-center justify-center mt-5"
+            className="delayed-text-appear flex items-center justify-center mt-5"
             onClick={handleClick}
           >
             <img

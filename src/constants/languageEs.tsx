@@ -62,6 +62,7 @@ export const ES_TRANSLATION = {
   LOVERS: "LOVERS",
   ORDER_10_BUBBLE_TEAS: "Pide 10 Bubble Teas y te invitamos al número 11",
   NO_PRODUCTS_IN_THE_CART: "No tienes productos en tu carrito",
+  CONGRATULATIONS_YOUVE_EARNED_1_FREE: "¡Felicidades! Has ganado 1 recompensa gratis para tu próximo pedido.",
   // descripciones
   STRAWBERRY_DESCRIPTION: "Fresas, leche de soya, bolas de tapioca.",
   BANANA_DESCRIPTION: "Plátanos, leche de soya, bolas de tapioca.",

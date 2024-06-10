@@ -98,6 +98,23 @@ body input {
   }
 }
 
+
+.delayed-text-appear {
+  animation: delayed-text-appear-anim 0.5s ease forwards;
+  animation-delay: 1s;
+  opacity: 0;
+}
+
+@keyframes delayed-text-appear-anim {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+
+}
+
 /* .appear-bottom {
   animation: appear-bottom-anim 0.5s ease;
   position: relative;
