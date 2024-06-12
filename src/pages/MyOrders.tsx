@@ -88,7 +88,7 @@ export function MyOrders() {
               {filteredOrdersByUser.length > 0 ? (
                 <Text id={"RECENT"} />
               ) : (<>
-                <Text id={"NO_ORDER_HISTORY"} /> && <div style={{marginTop: "250px"}}><ButtonOrderNow /></div></>
+                <Text id={"NO_ORDER_HISTORY"} /><div style={{marginTop: "250px"}}><ButtonOrderNow /></div></>
               )}
             </div>
             {filteredOrdersByUser
