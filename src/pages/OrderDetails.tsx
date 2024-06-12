@@ -1,48 +1,27 @@
-import { useNavigate } from "react-router-dom";
 import deleteIcon from "../assets/delete_icon.svg";
-import { paths } from "../utils/Router";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { BubbleTeaContext } from "../contexts/BubbleTeaContext";
 import { formatPrice } from "./../utils/formatPrice";
 import { Text } from "../components/Text";
-import { Button } from "../components/Button";
-import { updateFirebaseDoc } from "../utils/updateFirebaseDoc";
-import { firebaseAuth } from "./../firebase";
-import { UserContext } from "../contexts/UserContext";
-import { Timestamp } from "firebase/firestore";
 import { AttributesList } from "../components/AttributesList";
 import { Loading } from "../components/Loading";
 import { OrderDetailsHeader } from "../components/OrderDetailsHeader";
+import { OrderDetialsFooter } from "../components/OrderDetialsFooter";
 
 export function OrderDetails() {
-  const navigate = useNavigate();
   const {
     productsCart,
     setProductsCart,
     totalProductsCost,
     products,
-    clearCart,
     getProductById,
-    setIsLoginPopupOpen,
-    setIsSignupPopupOpen,
-    setShowMenu,
-    remainingDrinksForReward,
+    fetchOrders,
+    emptyStamps,
   } = useContext(BubbleTeaContext);
-  const { userName, isLogged } = useContext(UserContext);
 
-  const uploadOrder = async () => {
-    const newOrder = {
-      id: crypto.randomUUID(),
-      userId: firebaseAuth.currentUser.uid,
-      fullName: userName,
-      updatedAt: Timestamp.now(),
-      takeAway: false,
-      myOrder: productsCart,
-      isPaid: false,
-      totalOrderCost: totalProductsCost,
-    };
-    updateFirebaseDoc("orders", "orders", newOrder);
-  };
+  useEffect(() => {
+    fetchOrders();
+  }, []);
 
   const removeCartItem = (index: number) => {
     setProductsCart((prev) => {
@@ -52,24 +31,13 @@ export function OrderDetails() {
     });
   };
 
-  const onConfirmOrder = () => {
-    if (isLogged) {
-      uploadOrder().then(() => clearCart());
-    } else {
-      setIsLoginPopupOpen(true);
-      setIsSignupPopupOpen(false);
-      setShowMenu(false);
-    }
-    navigate(paths.myOrders);
-  };
-
   const textBold = { fontWeight: "bold", letterSpacing: "1px" };
 
   const calculateTotalDrinks = (): number => {
     return productsCart.reduce((total, item) => total + item.productAmount, 0);
   };
 
-  const hasReward = remainingDrinksForReward <= calculateTotalDrinks();
+  const hasReward = calculateTotalDrinks() > emptyStamps;
 
   const calculateTotalCostWithReward = (): number => {
     if (!hasReward) {
@@ -85,7 +53,7 @@ export function OrderDetails() {
   if (products.length < 1) return <Loading />;
   return (
     <>
-      <OrderDetailsHeader/>
+      <OrderDetailsHeader />
       <div style={{ backgroundColor: "#f1efef" }}>
         <div className="separation-line"></div>
         <div style={{ fontWeight: "bold", fontSize: "1.2em", padding: "25px" }}>
@@ -199,14 +167,7 @@ export function OrderDetails() {
         </div>
         <div className="separation-line"></div>
       </div>
-      <div style={{ marginBlock: "30px" }}>
-        {!!productsCart.length && (
-          <Button
-            text={<Text id={"CONFIRM_ORDER"} />}
-            onClick={onConfirmOrder}
-          />
-        )}
-      </div>
+      <OrderDetialsFooter />
     </>
   );
 }

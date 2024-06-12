@@ -2,6 +2,7 @@ import { ReactNode, createContext, useEffect, useState } from "react";
 import { ATTRIBUTES } from "../constants/ATTRIBUTES";
 import { Product } from "../constants/products.tsx";
 import { getFirebaseDoc } from "../utils/getFirebaseDoc.tsx";
+import { getOrdersByUserFromFirebase } from "../utils/getOrdersByUserFromFirebase.tsx";
 
 type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 
@@ -17,12 +18,12 @@ type Order = {
   id: string;
   userId: string;
   myOrder: OrderItem[];
-}
+};
 
 type OrderItem = {
   productId: string;
   productAmount: number;
-}
+};
 
 const defaultBubbleTeaContext = {
   showMenu: false,
@@ -47,11 +48,11 @@ const defaultBubbleTeaContext = {
   setIsSipIn: (() => {}) as SetState<boolean>,
   selectedCategory: "All",
   setSelectedCategory: (() => {}) as SetState<string>,
-  setFilteredOrdersByUser: (() => {}) as SetState<Order[]>,
+  filteredOrdersByUser: [] as Order[],
   isNextFree: false,
   stamps: [],
-  remainingDrinksForReward: 0,
-
+  emptyStamps: 0,
+  fetchOrders: () => {},
 };
 
 export const BubbleTeaContext = createContext(defaultBubbleTeaContext);
@@ -69,8 +70,15 @@ export const BubbleTeaProvider = ({ children }: { children: ReactNode }) => {
   const [products, setProducts] = useState(defaultProducts);
   const [selectedCategory, setSelectedCategory] = useState("All");
 
+  const [filteredOrdersByUser, setFilteredOrdersByUser] = useState([]);
 
- const [filteredOrdersByUser, setFilteredOrdersByUser] = useState([]);
+  const getOrdersByUser = getOrdersByUserFromFirebase();
+  const fetchOrders = async () => {
+    const userOrders = await getOrdersByUser();
+    setFilteredOrdersByUser(userOrders);
+  };
+
+  console.log("filteredOrdersByUser", filteredOrdersByUser);
   const getTotalOrderedDrinksAmount = () => {
     let totalAmount = 0;
     filteredOrdersByUser.forEach((order) =>
@@ -84,13 +92,12 @@ export const BubbleTeaProvider = ({ children }: { children: ReactNode }) => {
   const stamps = [];
   const maxStamps = 10;
   const totalOrderedDrinksAmount = getTotalOrderedDrinksAmount();
-  const remainingDrinksForReward = (totalOrderedDrinksAmount +1) % 11;
-  const stampedNumber = (totalOrderedDrinksAmount) % 11;
+  const rewardRemainder = (totalOrderedDrinksAmount + 1) % 11;
+  const stampedNumber = totalOrderedDrinksAmount % 11;
   const emptyStamps = maxStamps - stampedNumber;
-  const isNextFree = remainingDrinksForReward  === 0;
+  const isNextFree = rewardRemainder === 0;
 
-  
-  console.log("stampedNumber", stampedNumber)
+
   for (let i = 0; i < stampedNumber; i++) {
     console.log(i);
     stamps.push(true);
@@ -164,10 +171,11 @@ export const BubbleTeaProvider = ({ children }: { children: ReactNode }) => {
         setIsSipIn,
         selectedCategory,
         setSelectedCategory,
-        setFilteredOrdersByUser,
+        filteredOrdersByUser,
         isNextFree,
         stamps,
-        remainingDrinksForReward,
+        emptyStamps,
+        fetchOrders,
       }}
     >
       {children}

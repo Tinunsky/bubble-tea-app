@@ -21,16 +21,10 @@ export const containerStyle: CSSProperties = {
 };
 
 export function MyOrders() {
-  const [filteredOrdersByUser, setFilteredOrdersByUser] = useState([]);
-  const getOrdersByUser = getOrdersByUserFromFirebase();
   const navigate = useNavigate();
-  const { getProductById, setProductsCart } = useContext(BubbleTeaContext);
+  const { getProductById, setProductsCart, filteredOrdersByUser, fetchOrders } = useContext(BubbleTeaContext);
 
   useEffect(() => {
-    const fetchOrders = async () => {
-      const userOrders = await getOrdersByUser();
-      setFilteredOrdersByUser(userOrders);
-    };
     fetchOrders();
   }, []);
 
@@ -39,7 +33,7 @@ export function MyOrders() {
     navigate(paths.orderDetails);
   };
 
-  console.log(filteredOrdersByUser);
+
   const isRecent = (timestamp) => {
     const timeDifference = 1000 * 60 * 10;
     const now = new Date();
