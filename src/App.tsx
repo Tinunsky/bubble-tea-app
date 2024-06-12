@@ -7,7 +7,7 @@ import { CSSProperties } from "react";
 
 const containerStyle: CSSProperties = {
   margin: "auto",
-  boxShadow: "rgb(46 7 8) 0px 0px 60px, rgb(46 7 8) 0px 0px 19px",
+  boxShadow: "rgb(46 7 8) 0px -100px 60px, rgb(46 7 8) 0px -90px 19px",
   overflowX: "hidden",
 };
 
