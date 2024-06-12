@@ -1,4 +1,4 @@
-import { CSSProperties, useContext, useEffect, } from "react";
+import { CSSProperties, useContext, useEffect } from "react";
 import closeIcon from "../assets/close_icon_black.svg";
 import { useNavigate } from "react-router-dom";
 import { paths } from "../utils/Router";
@@ -21,7 +21,8 @@ export const containerStyle: CSSProperties = {
 
 export function MyOrders() {
   const navigate = useNavigate();
-  const { getProductById, setProductsCart, filteredOrdersByUser, fetchOrders } = useContext(BubbleTeaContext);
+  const { getProductById, setProductsCart, filteredOrdersByUser, fetchOrders } =
+    useContext(BubbleTeaContext);
 
   useEffect(() => {
     fetchOrders();
@@ -31,7 +32,6 @@ export function MyOrders() {
     setProductsCart(order.myOrder);
     navigate(paths.orderDetails);
   };
-
 
   const isRecent = (timestamp) => {
     const timeDifference = 1000 * 60 * 10;
@@ -44,7 +44,6 @@ export function MyOrders() {
     return updatedAt.getTime() + timeDifference > now.getTime();
   };
 
-  if (!filteredOrdersByUser.length) return <Loading />;
   return (
     <>
       <div style={containerStyle}>
@@ -79,7 +78,7 @@ export function MyOrders() {
             />
           </div>
         </div>
-
+        {filteredOrdersByUser === undefined && <Loading />}
         {filteredOrdersByUser && (
           <div>
             <div
@@ -214,7 +213,6 @@ export function MyOrders() {
           </div>
         )}
       </div>
-      ;
     </>
   );
 }
