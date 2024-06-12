@@ -10,6 +10,7 @@ import { AttributesList } from "../components/AttributesList";
 import { drinkImages } from "../constants/products";
 import bubbleTeaHome from "../assets/home_bubbletea.jpg";
 import { Loading } from "../components/Loading";
+import { ButtonOrderNow } from "../components/ButtonOrderNow";
 
 export const containerStyle: CSSProperties = {
   background: "white",
@@ -86,8 +87,8 @@ export function MyOrders() {
             >
               {filteredOrdersByUser.length > 0 ? (
                 <Text id={"RECENT"} />
-              ) : (
-                <Text id={"NO_ORDER_HISTORY"} />
+              ) : (<>
+                <Text id={"NO_ORDER_HISTORY"} /> && <div style={{marginTop: "250px"}}><ButtonOrderNow /></div></>
               )}
             </div>
             {filteredOrdersByUser

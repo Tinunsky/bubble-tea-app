@@ -90,6 +90,10 @@ export const BubbleTeaProvider = ({ children }: { children: ReactNode }) => {
     return totalAmount;
   };
 
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
   const stamps = [];
   const maxStamps = 10;
   const totalOrderedDrinksAmount = getTotalOrderedDrinksAmount();

@@ -1,5 +1,5 @@
 import deleteIcon from "../assets/delete_icon.svg";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { BubbleTeaContext } from "../contexts/BubbleTeaContext";
 import { formatPrice } from "./../utils/formatPrice";
 import { Text } from "../components/Text";
@@ -15,13 +15,8 @@ export function OrderDetails() {
     totalProductsCost,
     products,
     getProductById,
-    fetchOrders,
     emptyStamps,
   } = useContext(BubbleTeaContext);
-
-  useEffect(() => {
-    fetchOrders();
-  }, []);
 
   const removeCartItem = (index: number) => {
     setProductsCart((prev) => {

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import closeIcon from "../assets/close_icon_black.svg";
 import { paths } from "../utils/Router";
-import { CSSProperties, useContext, useEffect, } from "react";
+import { CSSProperties, useContext } from "react";
 import { Text } from "../components/Text";
 import bubbleTeaHome from "../assets/home_bubbletea.jpg";
 import logoImage from "../assets/logo_face.jpg";
@@ -19,12 +19,7 @@ export const containerStyle: CSSProperties = {
 
 export function SojaLovers() {
   const navigate = useNavigate();
-  const { fetchOrders, isNextFree, stamps } = useContext(BubbleTeaContext);
-
-  useEffect(() => {
-    fetchOrders();
-  }, []);
-
+  const { isNextFree, stamps } = useContext(BubbleTeaContext);
 
   return (
     <>
@@ -80,7 +75,10 @@ export function SojaLovers() {
           </div>
           <div>
             {stamps.map((stamp) => (
-              <div key={crypto.randomUUID()} style={{ width: "20%", display: "inline-block" }}>
+              <div
+                key={crypto.randomUUID()}
+                style={{ width: "20%", display: "inline-block" }}
+              >
                 <img
                   src={logoImage}
                   style={{
