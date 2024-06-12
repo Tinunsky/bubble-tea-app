@@ -71,7 +71,7 @@ export const BubbleTeaProvider = ({ children }: { children: ReactNode }) => {
   const [products, setProducts] = useState(defaultProducts);
   const [selectedCategory, setSelectedCategory] = useState("All");
 
-  const [filteredOrdersByUser, setFilteredOrdersByUser] = useState([]);
+  const [filteredOrdersByUser, setFilteredOrdersByUser] = useState(undefined);
 
   const getOrdersByUser = getOrdersByUserFromFirebase();
   const fetchOrders = async () => {
@@ -82,7 +82,7 @@ export const BubbleTeaProvider = ({ children }: { children: ReactNode }) => {
   console.log("filteredOrdersByUser", filteredOrdersByUser);
   const getTotalOrderedDrinksAmount = () => {
     let totalAmount = 0;
-    filteredOrdersByUser.forEach((order) =>
+    filteredOrdersByUser?.forEach((order) =>
       order.myOrder.forEach(
         (orderItem) => (totalAmount += orderItem.productAmount)
       )

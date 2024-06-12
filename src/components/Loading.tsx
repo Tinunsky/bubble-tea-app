@@ -7,8 +7,8 @@ export function Loading() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100dvh",
-        maxHeight: "100dvh",
+        height: "60dvh",
+        maxHeight: "60dvh",
       }}
     >
       <div
