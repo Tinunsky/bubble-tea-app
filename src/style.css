@@ -8,15 +8,14 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  background: url("./assets/blurred_background.jpg");
-  background-size: cover;
   font-family: Roboto, Helvetica, sans-serif;
   font-size: 12px;
   color: "black";
 }
 
-.root {
-  min-height: 100vh;
+body {
+  background: url("./assets/blurred_background.jpg");
+  background-size: cover;
 }
 
 h3 {

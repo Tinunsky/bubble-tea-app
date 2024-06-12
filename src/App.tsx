@@ -5,12 +5,11 @@ import { MenuWrapper } from "./components/MenuWrapper";
 import { BrowserRouter } from "react-router-dom";
 import { CSSProperties } from "react";
 
-
-const containerStyle: CSSProperties= {
+const containerStyle: CSSProperties = {
   margin: "auto",
-  minHeight: '100vh',
   background: "white md:hidden",
-  boxShadow: "hidden md:rgb(46 7 8) 0px 0px 60px, hidden md:rgb(46 7 8) 0px 0px 19px",
+  boxShadow:
+    "hidden md:rgb(46 7 8) 0px 0px 60px, hidden md:rgb(46 7 8) 0px 0px 19px",
   overflowX: "hidden",
 };
 
