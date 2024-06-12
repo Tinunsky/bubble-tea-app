@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { CSSProperties, useContext } from "react";
 import { BubbleTeaContext } from "../contexts/BubbleTeaContext";
 import { UserContext } from "../contexts/UserContext";
 import { ItemMenu } from "./ItemMenu";
@@ -45,7 +45,7 @@ export function MenuWrapper({ children }) {
     }
   };
 
-  const menuWrapperStyle = {
+  const menuWrapperStyle: CSSProperties = {
     width: "calc(306px + 100dvw)",
     display: "flex",
     position: "relative",

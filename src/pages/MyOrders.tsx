@@ -1,6 +1,5 @@
-import { CSSProperties, useContext, useEffect, useState } from "react";
+import { CSSProperties, useContext, useEffect, } from "react";
 import closeIcon from "../assets/close_icon_black.svg";
-import { getOrdersByUserFromFirebase } from "../utils/getOrdersByUserFromFirebase";
 import { useNavigate } from "react-router-dom";
 import { paths } from "../utils/Router";
 import storeIcon from "../assets/store_icon.svg";

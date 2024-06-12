@@ -1,5 +1,4 @@
 import sojaHeart from "../assets/soja_heart.jpg";
-import { Text } from "../components/Text";
 
 export function MenuHeader({ buttonOnClick, text, textButton }) {
   return (
@@ -15,7 +14,6 @@ export function MenuHeader({ buttonOnClick, text, textButton }) {
           alignItems: "center",
         }}
       >
-        {" "}
         <img
           src={sojaHeart}
           alt="userIcon"

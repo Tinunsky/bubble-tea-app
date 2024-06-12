@@ -1,4 +1,3 @@
-import { useState } from "react";
 import checkCircle from "../assets/check_circle.svg";
 
 export function ButtonProductAttribute({
@@ -7,18 +6,9 @@ export function ButtonProductAttribute({
   setAttributeId,
   selectedId,
 }) {
-  // const [isClicked, setIsClicked] = useState(false);
-
-  // let isSelected = false;
-  // if (selectedId === id) isSelected = true;
   const isSelected = selectedId === id;
-  // console.log("id", id);
-  // console.log("selectedId", selectedId);
-  // console.log("isSelected", isSelected);
 
-  // console.log("-------------------");
   const clickProductAttribute = () => {
-    // setIsClicked(!isClicked);
     setAttributeId(id);
   };
 

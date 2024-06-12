@@ -5,7 +5,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { firebaseAuth } from "../firebase";
-import { useContext, useState } from "react";
+import { CSSProperties, useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import { Text } from "../components/Text";
@@ -13,7 +13,7 @@ import googleIcon from "../assets/google_logo.svg";
 import { BubbleTeaContext } from "../contexts/BubbleTeaContext";
 import { paths } from "../utils/Router";
 
-export const containerStyle = {
+export const containerStyle: CSSProperties = {
   background: "white",
   backgroundSize: "cover",
   backgroundPosition: "center top",
@@ -57,7 +57,7 @@ export function Login({ onClose, openSignUp, singInWithGoogle }) {
 
   const resetPassword = async () => {
     try {
-      const resp = await sendPasswordResetEmail(firebaseAuth, emailLogIn);
+      await sendPasswordResetEmail(firebaseAuth, emailLogIn);
       window.alert("Email sent. Check your mailbox.");
     } catch (e) {
       if (e.code === "auth/missing-email") {

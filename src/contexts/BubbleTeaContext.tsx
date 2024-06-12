@@ -3,6 +3,7 @@ import { ATTRIBUTES } from "../constants/ATTRIBUTES";
 import { Product } from "../constants/products.tsx";
 import { getFirebaseDoc } from "../utils/getFirebaseDoc.tsx";
 import { getOrdersByUserFromFirebase } from "../utils/getOrdersByUserFromFirebase.tsx";
+import { Timestamp } from "firebase/firestore";
 
 type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 
@@ -16,13 +17,13 @@ export type CartItem = {
 
 type Order = {
   id: string;
+  fullName: string;
+  isPaid: boolean;
+  myOrder: CartItem[];
+  takeAway: boolean;
+  totalOrderCost: number;
+  updatedAt: Timestamp;
   userId: string;
-  myOrder: OrderItem[];
-};
-
-type OrderItem = {
-  productId: string;
-  productAmount: number;
 };
 
 const defaultBubbleTeaContext = {
@@ -41,7 +42,7 @@ const defaultBubbleTeaContext = {
   totalProductsCost: 0,
   products: [],
   clearCart: () => {},
-  getProductById: ((id) => {}) as (id: string) => Product,
+  getProductById: ((id) => {console.log(id)}) as (id: string) => Product,
   isTakeAway: false,
   setIsTakeAway: (() => {}) as SetState<boolean>,
   isSipIn: false,
@@ -96,7 +97,6 @@ export const BubbleTeaProvider = ({ children }: { children: ReactNode }) => {
   const stampedNumber = totalOrderedDrinksAmount % 11;
   const emptyStamps = maxStamps - stampedNumber;
   const isNextFree = rewardRemainder === 0;
-
 
   for (let i = 0; i < stampedNumber; i++) {
     console.log(i);

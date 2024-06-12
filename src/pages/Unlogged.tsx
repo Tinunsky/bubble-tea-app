@@ -39,7 +39,7 @@ export function Unlogged() {
     try {
       const result = await signInWithPopup(firebaseAuth, googleProvider);
 
-      const { displayName, email, photoURL, uid } = result.user;
+      const { displayName, uid } = result.user;
       console.log("google user", result.user);
       logIn(displayName, uid);
       setIsLoginPopupOpen(false);

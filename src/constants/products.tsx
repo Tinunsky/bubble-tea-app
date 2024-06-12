@@ -7,7 +7,7 @@ import strawberryBackground from "../assets/strawberry_background.jpg";
 import bananaBackground from "../assets/banana_background.jpg";
 import mangoBackground from "../assets/mango_background.jpg";
 import taroBackground from "../assets/taro_background.jpg";
-import taroMatchaBackground from "../assets/taro_matcha_background.avif";
+import taroMatchaBackground from "../assets/taro_matcha_background.jpg";
 import mangoGrapefruitBackground from "../assets/mango_grapefruit_background.jpeg";
 import soyMilkBackground from "../assets/soy_milk_background.jpg";
 import peachBackground from "../assets/peach_background.jpg";

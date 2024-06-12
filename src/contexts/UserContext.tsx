@@ -74,7 +74,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
           localStorage.setItem("userName", "");
           localStorage.setItem("userId", "");
         })
-        .catch((error) => {});
+        .catch(() => {});
     }
   }
 

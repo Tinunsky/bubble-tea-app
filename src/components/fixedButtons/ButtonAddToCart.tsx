@@ -1,5 +1,4 @@
 import { Button } from "../Button";
-import { Text } from "../Text";
 import { formatPrice } from "../../utils/formatPrice";
 import { fixedButtonStyle } from "./fixedButtonStyle";
 
