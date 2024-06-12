@@ -4,8 +4,8 @@
 @tailwind utilities;
 
 #root {
-  background-size: cover;
   background: url("./assets/blurred_background.jpg");
+  background-size: cover !important;
 }
 
 html,
