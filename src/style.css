@@ -15,6 +15,10 @@ body {
   color: "black";
 }
 
+.root {
+  min-height: 100vh;
+}
+
 h3 {
   font-weight: lighter;
   color: #4e3f3f;
