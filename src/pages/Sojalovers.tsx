@@ -19,11 +19,8 @@ export const containerStyle: CSSProperties = {
 
 export function SojaLovers() {
   const navigate = useNavigate();
-  const { fetchOrders, isNextFree, stamps } = useContext(BubbleTeaContext);
+  const { isNextFree, stamps } = useContext(BubbleTeaContext);
 
-  useEffect(() => {
-    fetchOrders();
-  }, []);
 
 
   return (

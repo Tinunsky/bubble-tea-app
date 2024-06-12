@@ -15,13 +15,12 @@ export function OrderDetails() {
     totalProductsCost,
     products,
     getProductById,
-    fetchOrders,
     emptyStamps,
   } = useContext(BubbleTeaContext);
 
-  useEffect(() => {
-    fetchOrders();
-  }, []);
+  // useEffect(() => {
+  //   fetchOrders();
+  // }, []);
 
   const removeCartItem = (index: number) => {
     setProductsCart((prev) => {

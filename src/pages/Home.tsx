@@ -13,12 +13,15 @@ import { paths } from "../utils/Router";
 
 export function Home() {
   const { userNameUpperCase } = useContext(UserContext);
-  const { isAddedToCart, clearCart } = useContext(BubbleTeaContext);
+  const { isAddedToCart, clearCart, emptyStamps } =
+    useContext(BubbleTeaContext);
   const navigate = useNavigate();
 
   const handleClick = () => {
     isAddedToCart ? clearCart() : navigate(paths.myOrders);
   };
+
+  const gainedStamps = 10 - emptyStamps;
 
   return (
     <>
@@ -44,7 +47,10 @@ export function Home() {
           }}
         >
           <div style={{ cursor: "pointer", padding: "3px 0" }}>
-            <div className="flex items-center mx-5 p-3"  onClick={() => navigate(paths.sojaLovers)}>
+            <div
+              className="flex items-center mx-5 p-3"
+              onClick={() => navigate(paths.sojaLovers)}
+            >
               <img
                 src={presentIcon}
                 alt="icon"
@@ -59,12 +65,16 @@ export function Home() {
               >
                 {"Soja Lover"}
               </div>
-              <div style={{ marginLeft: "auto" }}>
-                <img
-                  src={presentIcon}
-                  alt=""
-                  style={{ maxWidth: "15px", maxHeight: "15px" }}
-                />
+              <div
+                style={{
+                  marginLeft: "auto",
+                  backgroundColor: "#d892217a",
+                  borderRadius: "10px",
+                  padding: "1px 10px",
+                  color: "black",
+                }}
+              >
+                {gainedStamps === 10 ? "free drink" : <>{gainedStamps}/10</>}
               </div>
             </div>
           </div>
