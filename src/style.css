@@ -3,6 +3,11 @@
 @tailwind components;
 @tailwind utilities;
 
+#root {
+  background-size: cover;
+  background: url("./assets/blurred_background.jpg");
+}
+
 html,
 body {
   margin: 0;
@@ -11,11 +16,6 @@ body {
   font-family: Roboto, Helvetica, sans-serif;
   font-size: 12px;
   color: "black";
-}
-
-body {
-  background: url("./assets/blurred_background.jpg");
-  background-size: cover;
 }
 
 h3 {
@@ -101,7 +101,6 @@ body input {
   }
 }
 
-
 .delayed-text-appear {
   animation: delayed-text-appear-anim 0.5s ease forwards;
   animation-delay: 1s;
@@ -115,7 +114,6 @@ body input {
   100% {
     opacity: 1;
   }
-
 }
 
 /* .appear-bottom {
